@@ -60,6 +60,7 @@ export default function App() {
   const [showCustomModal, setShowCustomModal] = useState(false);
   const [editingActivity, setEditingActivity] = useState<Activity | null>(null);
   const [showInspiration, setShowInspiration] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const { play } = useAmbientSound();
 
   const handleEnter = useCallback(() => {
@@ -173,23 +174,68 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-2 sm:gap-3">
-              <ThemePicker />
-              <button
-                onClick={() => setShowInspiration(true)}
-                className="btn-text text-sm sm:text-base"
-              >
-                ✨
-              </button>
-              <button
-                onClick={() => setShowJournal(!showJournal)}
-                className="btn-text text-sm sm:text-base"
-                style={showJournal ? { opacity: 1, color: 'var(--color-glow)' } : {}}
-              >
-                📝
-              </button>
-              <AmbientSoundPicker currentSound={currentSound} onSelect={handleSoundSelect} />
+              {phase === 'timer' ? (
+                <>
+                  <button
+                    onClick={() => setShowSettings(!showSettings)}
+                    className="btn-text text-sm sm:text-base"
+                    style={showSettings ? { opacity: 1, color: 'var(--color-glow)' } : {}}
+                  >
+                    ⚙️
+                  </button>
+                  <button
+                    onClick={() => setShowJournal(!showJournal)}
+                    className="btn-text text-sm sm:text-base"
+                    style={showJournal ? { opacity: 1, color: 'var(--color-glow)' } : {}}
+                  >
+                    📝
+                  </button>
+                </>
+              ) : (
+                <>
+                  <ThemePicker />
+                  <button
+                    onClick={() => setShowInspiration(true)}
+                    className="btn-text text-sm sm:text-base"
+                  >
+                    ✨
+                  </button>
+                  <button
+                    onClick={() => setShowJournal(!showJournal)}
+                    className="btn-text text-sm sm:text-base"
+                    style={showJournal ? { opacity: 1, color: 'var(--color-glow)' } : {}}
+                  >
+                    📝
+                  </button>
+                  <AmbientSoundPicker currentSound={currentSound} onSelect={handleSoundSelect} />
+                </>
+              )}
             </div>
           </div>
+
+          {/* Collapsible settings panel for timer phase */}
+          {phase === 'timer' && showSettings && (
+            <div
+              className="absolute top-full right-2 sm:right-5 mt-1 z-30 animate-fade-in"
+              style={{
+                background: 'color-mix(in srgb, var(--color-deep) 92%, transparent)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid color-mix(in srgb, var(--color-muted) 20%, transparent)',
+                borderRadius: '1rem',
+                padding: '1rem 1.25rem',
+                boxShadow: '0 8px 32px -8px rgba(0,0,0,0.4)',
+              }}
+            >
+              <div className="mb-3">
+                <p className="text-xs text-whisper/40 mb-2 tracking-wide">氛围</p>
+                <AmbientSoundPicker currentSound={currentSound} onSelect={handleSoundSelect} />
+              </div>
+              <div>
+                <p className="text-xs text-whisper/40 mb-2 tracking-wide">主题</p>
+                <ThemePicker />
+              </div>
+            </div>
+          )}
         </div>
       )}
 
