@@ -161,46 +161,41 @@ export default function App() {
 
       {/* Top bar */}
       {phase !== 'welcome' && (
-        <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-5 py-4 animate-fade-in">
-          <div className="flex items-center gap-5">
-            <button onClick={handleBack} className="btn-text">
-              ← 返回
-            </button>
-            <h1 className="text-sm font-light text-whisper/70 tracking-[0.2em]">
-              慢 <span className="text-glow/60 font-mono text-xs">mind</span>
-            </h1>
-          </div>
+        <div className="absolute top-0 left-0 right-0 z-20 animate-fade-in">
+          <div className="flex items-center justify-between px-4 sm:px-5 py-3 sm:py-4">
+            <div className="flex items-center gap-3 sm:gap-5">
+              <button onClick={handleBack} className="btn-text text-sm sm:text-base">
+                ← 返回
+              </button>
+              <h1 className="text-sm font-light text-whisper/70 tracking-[0.2em]">
+                慢 <span className="text-glow/60 font-mono text-xs">mind</span>
+              </h1>
+            </div>
 
-          <div className="flex items-center gap-3">
-            {/* Theme picker */}
-            <ThemePicker />
-
-            {/* Inspiration button */}
-            <button
-              onClick={() => setShowInspiration(true)}
-              className="btn-text"
-            >
-              ✨ 灵感
-            </button>
-
-            {/* Journal history button */}
-            <button
-              onClick={() => setShowJournal(!showJournal)}
-              className="btn-text"
-              style={showJournal ? { opacity: 1, color: 'var(--color-glow)' } : {}}
-            >
-              手记 {journal.length > 0 && `(${journal.length})`}
-            </button>
-
-            {/* Ambient sound picker */}
-            <AmbientSoundPicker currentSound={currentSound} onSelect={handleSoundSelect} />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <ThemePicker />
+              <button
+                onClick={() => setShowInspiration(true)}
+                className="btn-text text-sm sm:text-base"
+              >
+                ✨
+              </button>
+              <button
+                onClick={() => setShowJournal(!showJournal)}
+                className="btn-text text-sm sm:text-base"
+                style={showJournal ? { opacity: 1, color: 'var(--color-glow)' } : {}}
+              >
+                📝
+              </button>
+              <AmbientSoundPicker currentSound={currentSound} onSelect={handleSoundSelect} />
+            </div>
           </div>
         </div>
       )}
 
       {/* Journal history panel */}
       {showJournal && phase !== 'welcome' && (
-        <div className="absolute top-16 right-5 z-30 w-80 max-h-[60vh] overflow-y-auto animate-fade-in"
+        <div className="absolute top-14 sm:top-16 right-2 sm:right-5 z-30 w-[calc(100%-1rem)] sm:w-80 max-h-[60vh] overflow-y-auto animate-fade-in"
           style={{
             background: 'color-mix(in srgb, var(--color-deep) 92%, transparent)',
             backdropFilter: 'blur(20px)',

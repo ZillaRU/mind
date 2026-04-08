@@ -31,12 +31,12 @@ export default function ActivityPicker({
   return (
     <div className="animate-fade-in">
       {/* Category pills */}
-      <div className="flex gap-4 mb-14 flex-wrap justify-center">
+      <div className="flex gap-2 sm:gap-4 mb-8 sm:mb-14 flex-wrap justify-center">
         {categories.map(cat => (
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className={`px-7 py-2.5 rounded-full text-sm font-light transition-all duration-500 ${
+            className={`px-4 sm:px-7 py-2 sm:py-2.5 rounded-full text-sm font-light transition-all duration-500 ${
               selectedCategory === cat
                 ? 'text-glow'
                 : 'text-whisper/50 hover:text-whisper/80'
@@ -59,14 +59,14 @@ export default function ActivityPicker({
       </div>
 
       {/* Activity grid — generous breathing room */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-7 sm:gap-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-7 sm:gap-8">
         {filtered.map((activity, index) => (
           <button
             key={activity.id}
             onClick={() => onSelect(activity)}
             onMouseEnter={() => setHoveredId(activity.id)}
             onMouseLeave={() => setHoveredId(null)}
-            className="card-hover relative py-10 px-5 rounded-2xl text-center group animate-fade-in"
+            className="card-hover relative py-6 sm:py-10 px-3 sm:px-5 rounded-2xl text-center group animate-fade-in"
             style={{
               background: 'color-mix(in srgb, var(--color-surface) 30%, transparent)',
               border: '1px solid color-mix(in srgb, var(--color-muted) 15%, transparent)',

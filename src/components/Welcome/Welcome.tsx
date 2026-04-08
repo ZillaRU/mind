@@ -10,8 +10,8 @@ export default function Welcome({ onEnter }: Props) {
   return (
     <div className="flex flex-col items-center justify-center h-full animate-fade-in">
       {/* Logo / Title */}
-      <div className="mb-14 text-center">
-        <h1 className="text-7xl font-extralight text-whisper/90 mb-4 tracking-[0.4em]"
+      <div className="mb-8 sm:mb-14 text-center">
+        <h1 className="text-5xl sm:text-7xl font-extralight text-whisper/90 mb-4 tracking-[0.4em]"
           style={{ textShadow: '0 0 60px var(--color-aurora-dim)' }}
         >
           慢
@@ -22,14 +22,14 @@ export default function Welcome({ onEnter }: Props) {
       </div>
 
       {/* Tagline */}
-      <p className="text-base text-whisper/60 max-w-md text-center leading-relaxed mb-14 font-light">
+      <p className="text-base text-whisper/60 max-w-md text-center leading-relaxed mb-8 sm:mb-14 font-light">
         {theme.copy.tagline}
       </p>
 
       {/* Enter button */}
       <button
         onClick={onEnter}
-        className="btn-primary animate-pulse-glow text-base px-12 py-4"
+        className="btn-primary animate-pulse-glow text-base px-8 sm:px-12 py-3 sm:py-4"
       >
         <span className="relative z-10">{theme.copy.enterButton}</span>
       </button>

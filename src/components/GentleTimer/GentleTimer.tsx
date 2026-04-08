@@ -18,7 +18,7 @@ export default function GentleTimer({ activityName, activityIcon, guide, experie
   return (
     <div className="h-full flex flex-col animate-fade-in">
       {/* Main content area */}
-      <div className="flex-1 flex flex-col items-center justify-center px-10 py-16">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-10 py-8 sm:py-16">
         {/* Activity icon + name */}
         <div className={`text-center ${hasExperience ? 'mb-12' : 'mb-16'}`}>
           <div className={`mb-6 ${hasExperience ? 'text-5xl' : 'text-7xl'} ${isRunning ? 'animate-breathe' : 'animate-float'}`}
