@@ -174,47 +174,31 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-2 sm:gap-3">
-              {phase === 'timer' ? (
-                <>
-                  <button
-                    onClick={() => setShowSettings(!showSettings)}
-                    className="btn-text text-sm sm:text-base"
-                    style={showSettings ? { opacity: 1, color: 'var(--color-glow)' } : {}}
-                  >
-                    ⚙️
-                  </button>
-                  <button
-                    onClick={() => setShowJournal(!showJournal)}
-                    className="btn-text text-sm sm:text-base"
-                    style={showJournal ? { opacity: 1, color: 'var(--color-glow)' } : {}}
-                  >
-                    📝
-                  </button>
-                </>
-              ) : (
-                <>
-                  <ThemePicker />
-                  <button
-                    onClick={() => setShowInspiration(true)}
-                    className="btn-text text-sm sm:text-base"
-                  >
-                    ✨
-                  </button>
-                  <button
-                    onClick={() => setShowJournal(!showJournal)}
-                    className="btn-text text-sm sm:text-base"
-                    style={showJournal ? { opacity: 1, color: 'var(--color-glow)' } : {}}
-                  >
-                    📝
-                  </button>
-                  <AmbientSoundPicker currentSound={currentSound} onSelect={handleSoundSelect} />
-                </>
-              )}
+              <button
+                onClick={() => setShowSettings(!showSettings)}
+                className="btn-text text-sm sm:text-base"
+                style={showSettings ? { opacity: 1, color: 'var(--color-glow)' } : {}}
+              >
+                ⚙️
+              </button>
+              <button
+                onClick={() => setShowInspiration(true)}
+                className="btn-text text-sm sm:text-base"
+              >
+                ✨
+              </button>
+              <button
+                onClick={() => setShowJournal(!showJournal)}
+                className="btn-text text-sm sm:text-base"
+                style={showJournal ? { opacity: 1, color: 'var(--color-glow)' } : {}}
+              >
+                📝
+              </button>
             </div>
           </div>
 
-          {/* Collapsible settings panel for timer phase */}
-          {phase === 'timer' && showSettings && (
+          {/* Collapsible settings panel */}
+          {showSettings && (
             <div
               className="absolute top-full right-2 sm:right-5 mt-1 z-30 animate-fade-in"
               style={{
