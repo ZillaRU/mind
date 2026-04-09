@@ -276,10 +276,10 @@ export default function App() {
           </div>
         )}
         {phase === 'pick' && (
-          <div className="h-full flex items-center justify-center px-12 pt-28 pb-12">
+          <div className="h-full flex items-start justify-center px-4 sm:px-12 pt-20 sm:pt-24 pb-6 overflow-y-auto">
             <div className="w-full max-w-4xl">
-              <div className="text-center mb-16">
-                <h2 className="text-2xl font-extralight text-whisper/80 mb-4 tracking-widest">
+              <div className="text-center mb-8 sm:mb-10">
+                <h2 className="text-2xl sm:text-3xl font-extralight text-whisper/80 mb-3 tracking-widest">
                   此刻，想做什么？
                 </h2>
                 <p className="text-sm text-whisper/35 font-light tracking-wide">

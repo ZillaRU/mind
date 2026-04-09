@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { activities, categoryLabels, type Activity } from '../../data/activities';
+import { activities, type Activity } from '../../data/activities';
 
 interface Props {
   customActivities: Activity[];
@@ -8,6 +8,14 @@ interface Props {
   onDeleteCustom: (activity: Activity) => void;
   onSelect: (activity: Activity) => void;
 }
+
+const categoryMeta: Record<string, { label: string; icon: string }> = {
+  all: { label: '全部', icon: '✦' },
+  hands: { label: '动手', icon: '🤲' },
+  body: { label: '身体', icon: '🫧' },
+  senses: { label: '感官', icon: '👁️' },
+  creative: { label: '创造', icon: '✨' },
+};
 
 export default function ActivityPicker({
   customActivities,
@@ -30,47 +38,52 @@ export default function ActivityPicker({
 
   return (
     <div className="animate-fade-in">
-      {/* Category pills */}
-      <div className="flex gap-2 sm:gap-4 mb-8 sm:mb-14 flex-wrap justify-center">
-        {categories.map(cat => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-4 sm:px-7 py-2 sm:py-2.5 rounded-full text-sm font-light transition-all duration-500 ${
-              selectedCategory === cat
-                ? 'text-glow'
-                : 'text-whisper/50 hover:text-whisper/80'
-            }`}
-            style={{
-              background: selectedCategory === cat
-                ? 'linear-gradient(135deg, color-mix(in srgb, var(--color-aurora) 20%, transparent), color-mix(in srgb, var(--color-aurora) 8%, transparent))'
-                : 'color-mix(in srgb, var(--color-surface) 40%, transparent)',
-              border: selectedCategory === cat
-                ? '1px solid color-mix(in srgb, var(--color-aurora) 35%, transparent)'
-                : '1px solid color-mix(in srgb, var(--color-muted) 20%, transparent)',
-              boxShadow: selectedCategory === cat
-                ? '0 2px 12px -2px color-mix(in srgb, var(--color-aurora) 15%, transparent)'
-                : 'none',
-            }}
-          >
-            {cat === 'all' ? '全部' : categoryLabels[cat]}
-          </button>
-        ))}
+      {/* Category tabs — larger touch targets, more spacing */}
+      <div className="flex gap-2.5 sm:gap-3 mb-8 sm:mb-10 flex-wrap justify-center">
+        {categories.map(cat => {
+          const active = selectedCategory === cat;
+          const meta = categoryMeta[cat];
+          return (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className="flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-sm sm:text-[15px] font-light transition-all duration-500"
+              style={{
+                color: active ? 'var(--color-glow)' : 'color-mix(in srgb, var(--color-whisper) 45%, transparent)',
+                background: active
+                  ? 'linear-gradient(135deg, color-mix(in srgb, var(--color-aurora) 18%, transparent), color-mix(in srgb, var(--color-aurora) 6%, transparent))'
+                  : 'color-mix(in srgb, var(--color-surface) 35%, transparent)',
+                border: active
+                  ? '1.5px solid color-mix(in srgb, var(--color-aurora) 35%, transparent)'
+                  : '1.5px solid color-mix(in srgb, var(--color-muted) 18%, transparent)',
+                boxShadow: active
+                  ? '0 2px 16px -2px color-mix(in srgb, var(--color-aurora) 15%, transparent)'
+                  : 'none',
+              }}
+            >
+              <span className="text-sm sm:text-base">{meta.icon}</span>
+              <span>{meta.label}</span>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Activity grid — generous breathing room */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-7 sm:gap-8">
+      {/* Activity grid — uniform card height */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-5">
         {filtered.map((activity, index) => (
           <button
             key={activity.id}
             onClick={() => onSelect(activity)}
             onMouseEnter={() => setHoveredId(activity.id)}
             onMouseLeave={() => setHoveredId(null)}
-            className="card-hover relative py-6 sm:py-10 px-3 sm:px-5 rounded-2xl text-center group animate-fade-in"
+            className="card-hover relative rounded-2xl text-center group animate-fade-in"
             style={{
               background: 'color-mix(in srgb, var(--color-surface) 30%, transparent)',
               border: '1px solid color-mix(in srgb, var(--color-muted) 15%, transparent)',
-              animationDelay: `${index * 60}ms`,
+              animationDelay: `${index * 50}ms`,
+              // Uniform height: padding + min-height
+              minHeight: '160px',
+              padding: '1.25rem 0.75rem',
             }}
           >
             {/* Custom activity menu */}
@@ -81,7 +94,7 @@ export default function ActivityPicker({
                     e.stopPropagation();
                     setMenuOpenId(menuOpenId === activity.id ? null : activity.id);
                   }}
-                  className="w-6 h-6 rounded-full flex items-center justify-center
+                  className="w-7 h-7 rounded-full flex items-center justify-center
                     text-whisper/40 hover:text-whisper/80 hover:bg-surface/60
                     transition-all duration-300 text-xs"
                 >
@@ -89,7 +102,7 @@ export default function ActivityPicker({
                 </button>
                 {menuOpenId === activity.id && (
                   <div
-                    className="absolute right-0 top-7 w-24 rounded-xl overflow-hidden
+                    className="absolute right-0 top-8 w-24 rounded-xl overflow-hidden
                       border shadow-xl z-20"
                     style={{
                       background: 'var(--color-deep)',
@@ -126,34 +139,35 @@ export default function ActivityPicker({
               }}
             />
 
-            <div className="relative flex flex-col items-center">
-              <span className="text-5xl mb-5 block group-hover:scale-110 transition-transform duration-500"
-                style={{ filter: 'drop-shadow(0 0 8px transparent)' }}
-              >
+            <div className="relative flex flex-col items-center justify-center h-full gap-3">
+              <span className="text-4xl sm:text-5xl block group-hover:scale-110 transition-transform duration-500">
                 {activity.icon}
               </span>
-              <h3 className="text-base font-light text-whisper/80 group-hover:text-glow transition-colors duration-500 mb-2">
-                {activity.name}
-              </h3>
-              <p className="text-xs font-mono"
-                style={{ color: 'color-mix(in srgb, var(--color-aurora) 40%, transparent)' }}
-              >
-                {activity.duration}
-              </p>
+              <div>
+                <h3 className="text-sm sm:text-base font-light text-whisper/80 group-hover:text-glow transition-colors duration-500 mb-1">
+                  {activity.name}
+                </h3>
+                <p className="text-xs font-mono"
+                  style={{ color: 'color-mix(in srgb, var(--color-aurora) 40%, transparent)' }}
+                >
+                  {activity.duration}
+                </p>
+              </div>
             </div>
           </button>
         ))}
 
-        {/* Add custom activity card */}
+        {/* Add custom activity card — same uniform height */}
         <button
           onClick={onAddCustom}
-          className="card-hover py-10 px-5 rounded-2xl flex flex-col items-center justify-center min-h-[180px] animate-fade-in group"
+          className="card-hover rounded-2xl flex flex-col items-center justify-center animate-fade-in group"
           style={{
             border: '2px dashed color-mix(in srgb, var(--color-muted) 25%, transparent)',
-            animationDelay: `${filtered.length * 60}ms`,
+            minHeight: '160px',
+            animationDelay: `${filtered.length * 50}ms`,
           }}
         >
-          <span className="text-4xl text-whisper/30 group-hover:text-aurora/60 transition-all duration-500 mb-4 group-hover:scale-110">
+          <span className="text-3xl text-whisper/30 group-hover:text-aurora/60 transition-all duration-500 mb-3 group-hover:scale-110">
             +
           </span>
           <span className="text-sm text-whisper/40 group-hover:text-whisper/70 transition-colors duration-500 font-light">

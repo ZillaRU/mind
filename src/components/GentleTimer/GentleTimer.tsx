@@ -18,7 +18,7 @@ export default function GentleTimer({ activityName, activityIcon, guide, experie
   return (
     <div className="h-full flex flex-col animate-fade-in">
       {/* Main content area */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-10 py-8 sm:py-16">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-10 py-6 sm:py-12">
         {/* Activity icon + name */}
         <div className={`text-center ${hasExperience ? 'mb-12' : 'mb-16'}`}>
           <div className={`mb-6 ${hasExperience ? 'text-5xl' : 'text-7xl'} ${isRunning ? 'animate-breathe' : 'animate-float'}`}
@@ -74,13 +74,13 @@ export default function GentleTimer({ activityName, activityIcon, guide, experie
         )}
       </div>
 
-      {/* Controls — fixed at bottom */}
-      <div className="flex flex-col items-center pb-12 pt-6">
+      {/* Controls — comfortably reachable on mobile */}
+      <div className="flex flex-col items-center pb-6 sm:pb-10 pt-4 sm:pt-6">
         <div className="flex gap-4 items-center">
           {!hasOwnControls && (
             <button
               onClick={toggle}
-              className={`transition-all duration-500 ${isRunning ? 'btn-ghost' : 'btn-primary animate-pulse-glow'}`}
+              className={`transition-all duration-500 text-base px-8 sm:px-10 py-3 sm:py-3.5 ${isRunning ? 'btn-ghost' : 'btn-primary animate-pulse-glow'}`}
             >
               {isRunning ? '暂停一下' : '开始'}
             </button>
