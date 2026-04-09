@@ -28,15 +28,13 @@ export default function CustomActivityModal({ activity, onSave, onClose }: Props
   const [description, setDescription] = useState(activity?.description || '');
   const [guide, setGuide] = useState(activity?.guide || '');
   const [duration, setDuration] = useState(activity?.duration || '15-30 分钟');
-  const [category, setCategory] = useState<Activity['category']>(activity?.category || 'hands');
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-
+  const [category, setCategory] = useState<Activity['category']>(activity?.category || 'creative');
+  const [showCustomDuration, setShowCustomDuration] = useState(false);
+  const [customDuration, setCustomDuration] = useState('');
   const isEditing = !!activity;
 
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
+    const handleEsc = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
   }, [onClose]);
@@ -48,151 +46,208 @@ export default function CustomActivityModal({ activity, onSave, onClose }: Props
       name: name.trim(),
       icon,
       description: description.trim() || '自定义活动',
-      guide: guide.trim() || '按照自己的节奏来就好。',
-      duration: duration.trim() || '15-30 分钟',
+      guide: guide.trim() || '享受这段时光',
+      duration: showCustomDuration ? (customDuration || '自定义') : duration,
       category,
     });
-    onClose();
   };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center px-6 py-10"
+      style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }}
       onClick={onClose}
     >
-      <div className="absolute inset-0"
-        style={{ background: 'color-mix(in srgb, var(--color-midnight) 88%, transparent)', backdropFilter: 'blur(12px)' }}
-      />
-
       <div
-        className="relative w-full max-w-md mx-4 p-6 rounded-2xl animate-fade-in"
-        onClick={e => e.stopPropagation()}
+        className="w-full max-w-lg rounded-3xl p-8 sm:p-10 animate-fade-in-scale"
         style={{
-          background: 'color-mix(in srgb, var(--color-deep) 95%, transparent)',
+          background: 'var(--color-deep)',
           border: '1px solid color-mix(in srgb, var(--color-muted) 20%, transparent)',
-          boxShadow: '0 12px 48px -12px rgba(0,0,0,0.5)',
+          boxShadow: '0 24px 80px -12px rgba(0,0,0,0.5)',
         }}
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-normal text-whisper/90">
-            {isEditing ? '编辑活动' : '添加活动'}
-          </h2>
-          <button onClick={onClose} className="btn-text text-base">✕</button>
+        <div className="flex items-start justify-between mb-8">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-extralight text-whisper/90 tracking-wide">
+              {isEditing ? '编辑活动' : '添加活动'}
+            </h2>
+            <p className="text-sm text-whisper/50 mt-1.5 font-light">
+              {isEditing ? '修改你的慢时光' : '创造一段属于你的慢时光'}
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-9 h-9 rounded-full flex items-center justify-center
+              text-whisper/60 hover:text-whisper/80 transition-all duration-300 text-base"
+            style={{
+              background: 'color-mix(in srgb, var(--color-surface) 40%, transparent)',
+              border: '1px solid color-mix(in srgb, var(--color-muted) 15%, transparent)',
+            }}
+          >
+            ✕
+          </button>
         </div>
 
         {/* Icon picker */}
-        <div className="mb-5">
-          <label className="block text-xs text-whisper/50 mb-2">图标</label>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-              className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl transition-all duration-300"
-              style={{
-                background: 'color-mix(in srgb, var(--color-surface) 50%, transparent)',
-                border: '1px solid color-mix(in srgb, var(--color-muted) 20%, transparent)',
-              }}
-            >
-              {icon}
-            </button>
-            {showEmojiPicker && (
-              <div className="flex flex-wrap gap-1.5 max-w-[280px] animate-fade-in">
-                {emojiOptions.map(e => (
-                  <button
-                    key={e}
-                    onClick={() => { setIcon(e); setShowEmojiPicker(false); }}
-                    className="w-8 h-8 rounded-lg flex items-center justify-center text-base transition-all duration-200"
-                    style={{
-                      background: icon === e
-                        ? 'color-mix(in srgb, var(--color-aurora) 20%, transparent)'
-                        : 'transparent',
-                      border: icon === e
-                        ? '1px solid color-mix(in srgb, var(--color-aurora) 30%, transparent)'
-                        : '1px solid transparent',
-                    }}
-                  >
-                    {e}
-                  </button>
-                ))}
-              </div>
-            )}
+        <div className="mb-7">
+          <label className="block text-sm text-whisper/60 mb-3 tracking-wide font-light">
+            选择图标
+          </label>
+          <div className="flex flex-wrap gap-3">
+            {emojiOptions.map((emoji) => (
+              <button
+                key={emoji}
+                onClick={() => setIcon(emoji)}
+                className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl
+                  transition-all duration-300 ${
+                  icon === emoji
+                    ? 'scale-110'
+                    : 'hover:scale-105 opacity-60 hover:opacity-100'
+                }`}
+                style={{
+                  background: icon === emoji
+                    ? 'color-mix(in srgb, var(--color-aurora) 15%, transparent)'
+                    : 'color-mix(in srgb, var(--color-surface) 30%, transparent)',
+                  border: icon === emoji
+                    ? '1px solid color-mix(in srgb, var(--color-aurora) 30%, transparent)'
+                    : '1px solid transparent',
+                  boxShadow: icon === emoji
+                    ? '0 0 12px -2px color-mix(in srgb, var(--color-aurora) 20%, transparent)'
+                    : 'none',
+                }}
+              >
+                {emoji}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Name */}
-        <div className="mb-4">
-          <label className="block text-xs text-whisper/50 mb-2">名称</label>
-          <input
-            type="text"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            placeholder="比如：折纸、冥想、遛狗..."
-            className="input-field"
-          />
-        </div>
-
-        {/* Description */}
-        <div className="mb-4">
-          <label className="block text-xs text-whisper/50 mb-2">简短描述</label>
-          <input
-            type="text"
-            value={description}
-            onChange={e => setDescription(e.target.value)}
-            placeholder="一句话说明这个活动"
-            className="input-field"
-          />
-        </div>
-
-        {/* Guide */}
-        <div className="mb-4">
-          <label className="block text-xs text-whisper/50 mb-2">引导语</label>
-          <textarea
-            value={guide}
-            onChange={e => setGuide(e.target.value)}
-            placeholder="活动时的温馨提示..."
-            className="input-field h-20 resize-none"
-          />
-        </div>
-
-        {/* Duration + Category */}
-        <div className="flex gap-3 mb-6">
-          <div className="flex-1">
-            <label className="block text-xs text-whisper/50 mb-2">建议时长</label>
+        {/* Form fields */}
+        <div className="space-y-6">
+          <div>
+            <label className="block text-sm text-whisper/60 mb-2.5 tracking-wide font-light">
+              活动名称
+            </label>
             <input
               type="text"
-              value={duration}
-              onChange={e => setDuration(e.target.value)}
-              placeholder="15-30 分钟"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="给这段时光起个名字"
+              className="input-field"
+              autoFocus
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-whisper/60 mb-2.5 tracking-wide font-light">
+              简短描述
+            </label>
+            <input
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="一句话描述它"
               className="input-field"
             />
           </div>
-          <div className="flex-1">
-            <label className="block text-xs text-whisper/50 mb-2">分类</label>
-            <div className="relative">
+
+          <div>
+            <label className="block text-sm text-whisper/60 mb-2.5 tracking-wide font-light">
+              引导语
+            </label>
+            <textarea
+              value={guide}
+              onChange={(e) => setGuide(e.target.value)}
+              placeholder="开始前给自己的一句话"
+              className="input-field resize-none"
+              rows={3}
+            />
+          </div>
+
+          <div className="flex gap-5">
+            <div className="flex-1">
+              <label className="block text-sm text-whisper/60 mb-2.5 tracking-wide font-light">
+                建议时长
+              </label>
               <select
-                value={category}
-                onChange={e => setCategory(e.target.value as Activity['category'])}
+                value={showCustomDuration ? 'custom' : duration}
+                onChange={(e) => {
+                  if (e.target.value === 'custom') {
+                    setShowCustomDuration(true);
+                  } else {
+                    setShowCustomDuration(false);
+                    setDuration(e.target.value);
+                  }
+                }}
                 className="input-field appearance-none cursor-pointer pr-10"
               >
-                {categories.map(c => (
-                  <option key={c.value} value={c.value} className="bg-deep text-whisper">
-                    {c.label}
-                  </option>
-                ))}
+                <option value="5-10 分钟">5-10 分钟</option>
+                <option value="10-20 分钟">10-20 分钟</option>
+                <option value="15-30 分钟">15-30 分钟</option>
+                <option value="20-40 分钟">20-40 分钟</option>
+                <option value="30-60 分钟">30-60 分钟</option>
+                <option value="随意">随意</option>
+                <option value="custom">自定义...</option>
               </select>
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-whisper/50 pointer-events-none text-xs">
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-whisper/50 pointer-events-none text-sm">
                 ▾
               </span>
+            </div>
+
+            {showCustomDuration && (
+              <div className="flex-1">
+                <label className="block text-sm text-whisper/60 mb-2.5 tracking-wide font-light">
+                  自定义时长
+                </label>
+                <input
+                  type="text"
+                  value={customDuration}
+                  onChange={(e) => setCustomDuration(e.target.value)}
+                  placeholder="比如：一杯茶的时间"
+                  className="input-field"
+                />
+              </div>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm text-whisper/60 mb-2.5 tracking-wide font-light">
+              分类
+            </label>
+            <div className="flex gap-3">
+              {categories.map(c => (
+                <button
+                  key={c.value}
+                  onClick={() => setCategory(c.value)}
+                  className={`px-5 py-2.5 rounded-xl text-sm transition-all duration-300 ${
+                    category === c.value
+                      ? 'text-glow'
+                      : 'text-whisper/50 hover:text-whisper/70'
+                  }`}
+                  style={{
+                    background: category === c.value
+                      ? 'color-mix(in srgb, var(--color-aurora) 12%, transparent)'
+                      : 'color-mix(in srgb, var(--color-surface) 30%, transparent)',
+                    border: category === c.value
+                      ? '1px solid color-mix(in srgb, var(--color-aurora) 25%, transparent)'
+                      : '1px solid color-mix(in srgb, var(--color-muted) 15%, transparent)',
+                  }}
+                >
+                  {c.label}
+                </button>
+              ))}
             </div>
           </div>
         </div>
 
         {/* Actions */}
-        <div className="flex gap-3">
+        <div className="flex gap-4 mt-8">
           <button
             onClick={handleSave}
             disabled={!name.trim()}
-            className={`flex-1 py-3.5 rounded-xl text-sm transition-all duration-500 ${
+            className={`flex-1 py-4 rounded-xl text-base transition-all duration-500 ${
               name.trim()
                 ? 'btn-primary'
                 : 'opacity-40 cursor-not-allowed'

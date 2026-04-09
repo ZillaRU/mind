@@ -300,6 +300,25 @@ export default function PuddleStomp() {
         }
       }
 
+      // Custom cursor: cat paw
+      if (s.mouse.active) {
+        const mx = s.mouse.x, my = s.mouse.y;
+        // Paw pad
+        ctx.fillStyle = `rgba(180,160,200,${s.mouse.inPuddle ? 0.7 : 0.45})`;
+        ctx.beginPath(); ctx.ellipse(mx, my + 2, 7, 6, 0, 0, Math.PI * 2); ctx.fill();
+        // Toe beans
+        const beans = [[-6, -6], [0, -8], [6, -6], [-8, 0], [8, 0]];
+        for (const [bx, by] of beans) {
+          ctx.beginPath(); ctx.ellipse(mx + bx, my + by, 3.5, 3, 0, 0, Math.PI * 2); ctx.fill();
+        }
+        // Subtle glow
+        const pg = ctx.createRadialGradient(mx, my, 0, mx, my, 25);
+        pg.addColorStop(0, `rgba(180,160,220,${s.mouse.inPuddle ? 0.12 : 0.06})`);
+        pg.addColorStop(1, 'rgba(180,160,220,0)');
+        ctx.fillStyle = pg;
+        ctx.beginPath(); ctx.arc(mx, my, 25, 0, Math.PI * 2); ctx.fill();
+      }
+
       // Poem
       s.poemTimer += dt;
       if (s.poemTimer > 500 && s.poemOpacity <= 0) {
@@ -311,9 +330,9 @@ export default function PuddleStomp() {
         if (s.poemTimer < 60) s.poemOpacity = Math.min(s.poemOpacity + 0.008 * dt, 0.55);
         else if (s.poemTimer > 350) s.poemOpacity -= 0.006 * dt;
         if (s.poemOpacity > 0) {
-          ctx.font = '13px system-ui, -apple-system, "PingFang SC", sans-serif';
+          ctx.font = '15px system-ui, -apple-system, "PingFang SC", sans-serif';
           ctx.textAlign = 'center';
-          ctx.fillStyle = `rgba(170,180,200,${Math.max(0, s.poemOpacity)})`;
+          ctx.fillStyle = `rgba(190,200,220,${Math.max(0, s.poemOpacity)})`;
           ctx.fillText(s.poem, cw / 2, ch * 0.1);
         }
       }

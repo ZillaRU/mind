@@ -48,7 +48,7 @@ export default function GentleTimer({ activityName, activityIcon, guide, experie
       ) : (
       <>
       /* Normal layout */
-      <div className="flex-1 flex flex-col items-center justify-center px-10 py-16">
+      <div className="flex-1 flex flex-col items-center justify-center px-12 py-20">
         {/* Activity icon + name */}
         <div className={`text-center ${hasExperience ? 'mb-12' : 'mb-16'}`}>
           <div className={`mb-6 ${hasExperience ? 'text-5xl' : 'text-7xl'} ${isRunning ? 'animate-breathe' : 'animate-float'}`}
@@ -117,7 +117,7 @@ export default function GentleTimer({ activityName, activityIcon, guide, experie
           )}
 
           {hasExperience && !hasOwnControls && (
-            <span className="font-mono text-sm text-whisper/50 tracking-wider">
+            <span className="font-mono text-base text-whisper/50 tracking-wider">
               {formatted}
             </span>
           )}
@@ -141,7 +141,7 @@ export default function GentleTimer({ activityName, activityIcon, guide, experie
           )}
         </div>
 
-        <p className="text-xs text-whisper/55 mt-6 font-mono animate-soft-pulse">
+        <p className="text-sm text-whisper/55 mt-8 font-mono animate-soft-pulse">
           {isRunning ? '没有倒计时，只有此刻' : '准备好了就点开始'}
         </p>
       </div>

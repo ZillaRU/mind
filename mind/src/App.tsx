@@ -161,13 +161,13 @@ export default function App() {
 
       {/* Top bar */}
       {phase !== 'welcome' && (
-        <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-5 py-4 animate-fade-in">
+        <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 py-5 animate-fade-in">
           <div className="flex items-center gap-5">
             <button onClick={handleBack} className="btn-text">
               ← 返回
             </button>
-            <h1 className="text-sm font-light text-whisper/70 tracking-[0.2em]">
-              慢 <span className="text-glow/60 font-mono text-xs">mind</span>
+            <h1 className="text-base font-light text-whisper/70 tracking-[0.2em]">
+              慢 <span className="text-glow/60 font-mono text-sm">mind</span>
             </h1>
           </div>
 
@@ -210,21 +210,21 @@ export default function App() {
             boxShadow: '0 8px 32px -8px rgba(0,0,0,0.4)',
           }}
         >
-          <h3 className="text-sm font-normal text-whisper/80 mb-5">过去的慢时光</h3>
+          <h3 className="text-base font-normal text-whisper/80 mb-5">过去的慢时光</h3>
           {journal.length === 0 ? (
-            <p className="text-xs text-whisper/40">还没有记录</p>
+            <p className="text-sm text-whisper/60">还没有记录</p>
           ) : (
             <div className="space-y-4">
               {journal.map((entry, i) => (
                 <div key={i} className="pb-3" style={{ borderBottom: '1px solid color-mix(in srgb, var(--color-muted) 10%, transparent)' }}>
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs text-glow/70">{entry.activity}</span>
-                    <span className="text-xs text-whisper/40 font-mono">{entry.duration}</span>
+                    <span className="text-sm text-whisper/60 font-mono">{entry.duration}</span>
                   </div>
                   {entry.entry && (
-                    <p className="text-xs text-whisper/40 leading-relaxed">{entry.entry}</p>
+                    <p className="text-sm text-whisper/60 leading-relaxed">{entry.entry}</p>
                   )}
-                  <p className="text-xs text-whisper/15 mt-1 font-mono">
+                  <p className="text-sm text-whisper/40 mt-1 font-mono">
                     {new Date(entry.timestamp).toLocaleDateString('zh-CN', {
                       month: 'short',
                       day: 'numeric',

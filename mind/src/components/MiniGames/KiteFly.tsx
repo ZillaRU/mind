@@ -366,14 +366,39 @@ export default function KiteFly() {
         poemOpacity = 0; poemTimer = 0;
       }
       if (poemOpacity > 0 || poemTimer < 60) {
-        if (poemTimer < 60) poemOpacity = Math.min(poemOpacity + 0.006 * dt, 0.45);
+        if (poemTimer < 60) poemOpacity = Math.min(poemOpacity + 0.006 * dt, 0.5);
         else if (poemTimer > 400) poemOpacity -= 0.005 * dt;
         if (poemOpacity > 0) {
-          ctx.font = '13px system-ui, -apple-system, "PingFang SC", sans-serif';
+          ctx.font = '15px system-ui, -apple-system, "PingFang SC", sans-serif';
           ctx.textAlign = 'center';
           ctx.fillStyle = `rgba(40,50,70,${Math.max(0, poemOpacity)})`;
           ctx.fillText(poem, cw / 2, ch * 0.92);
         }
+      }
+
+      // Custom cursor: wind swirl
+      if (mouse.active) {
+        const wx = mouse.x, wy = mouse.y;
+        // Wind lines
+        ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+        ctx.lineWidth = 1.5;
+        ctx.lineCap = 'round';
+        for (let i = 0; i < 3; i++) {
+          const angle = t * 2 + i * (Math.PI * 2 / 3);
+          const r = 10 + i * 4;
+          ctx.beginPath();
+          ctx.arc(wx, wy, r, angle, angle + 1.2);
+          ctx.stroke();
+        }
+        // Center dot
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.beginPath(); ctx.arc(wx, wy, 2.5, 0, Math.PI * 2); ctx.fill();
+        // Soft glow
+        const wg = ctx.createRadialGradient(wx, wy, 0, wx, wy, 30);
+        wg.addColorStop(0, 'rgba(255,255,255,0.06)');
+        wg.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = wg;
+        ctx.beginPath(); ctx.arc(wx, wy, 30, 0, Math.PI * 2); ctx.fill();
       }
 
       animRef.current = requestAnimationFrame(loop);

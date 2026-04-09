@@ -29,14 +29,14 @@ export default function ActivityPicker({
   const isCustom = (id: string) => customActivities.some(a => a.id === id);
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in px-6 sm:px-10">
       {/* Category pills */}
-      <div className="flex gap-4 mb-14 flex-wrap justify-center">
+      <div className="flex gap-4 mb-16 flex-wrap justify-center">
         {categories.map(cat => (
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className={`px-7 py-2.5 rounded-full text-sm font-light transition-all duration-500 ${
+            className={`px-8 py-3 rounded-full text-base font-light transition-all duration-500 ${
               selectedCategory === cat
                 ? 'text-glow'
                 : 'text-whisper/50 hover:text-whisper/80'
@@ -58,15 +58,15 @@ export default function ActivityPicker({
         ))}
       </div>
 
-      {/* Activity grid — generous breathing room */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-7 sm:gap-8">
+      {/* Activity grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 sm:gap-10">
         {filtered.map((activity, index) => (
           <button
             key={activity.id}
             onClick={() => onSelect(activity)}
             onMouseEnter={() => setHoveredId(activity.id)}
             onMouseLeave={() => setHoveredId(null)}
-            className="card-hover relative py-10 px-5 rounded-2xl text-center group animate-fade-in"
+            className="card-hover relative py-12 px-6 rounded-2xl text-center group animate-fade-in"
             style={{
               background: 'color-mix(in srgb, var(--color-surface) 30%, transparent)',
               border: '1px solid color-mix(in srgb, var(--color-muted) 15%, transparent)',
@@ -81,15 +81,15 @@ export default function ActivityPicker({
                     e.stopPropagation();
                     setMenuOpenId(menuOpenId === activity.id ? null : activity.id);
                   }}
-                  className="w-6 h-6 rounded-full flex items-center justify-center
-                    text-whisper/40 hover:text-whisper/80 hover:bg-surface/60
-                    transition-all duration-300 text-xs"
+                  className="w-7 h-7 rounded-full flex items-center justify-center
+                    text-whisper/60 hover:text-whisper/80 hover:bg-surface/60
+                    transition-all duration-300 text-sm"
                 >
                   ···
                 </button>
                 {menuOpenId === activity.id && (
                   <div
-                    className="absolute right-0 top-7 w-24 rounded-xl overflow-hidden
+                    className="absolute right-0 top-8 w-28 rounded-xl overflow-hidden
                       border shadow-xl z-20"
                     style={{
                       background: 'var(--color-deep)',
@@ -99,7 +99,7 @@ export default function ActivityPicker({
                   >
                     <button
                       onClick={(e) => { e.stopPropagation(); onEditCustom(activity); setMenuOpenId(null); }}
-                      className="w-full px-3 py-2.5 text-xs text-whisper/70 hover:text-glow hover:bg-surface/50
+                      className="w-full px-4 py-3 text-sm text-whisper/70 hover:text-glow hover:bg-surface/50
                         transition-colors text-left"
                     >
                       编辑
@@ -107,7 +107,7 @@ export default function ActivityPicker({
                     <div className="divider" />
                     <button
                       onClick={(e) => { e.stopPropagation(); onDeleteCustom(activity); setMenuOpenId(null); }}
-                      className="w-full px-3 py-2.5 text-xs text-whisper/50 hover:text-ember hover:bg-surface/50
+                      className="w-full px-4 py-3 text-sm text-whisper/50 hover:text-ember hover:bg-surface/50
                         transition-colors text-left"
                     >
                       删除
@@ -132,10 +132,10 @@ export default function ActivityPicker({
               >
                 {activity.icon}
               </span>
-              <h3 className="text-base font-light text-whisper/80 group-hover:text-glow transition-colors duration-500 mb-2">
+              <h3 className="text-lg font-light text-whisper/80 group-hover:text-glow transition-colors duration-500 mb-2.5">
                 {activity.name}
               </h3>
-              <p className="text-xs font-mono"
+              <p className="text-sm font-mono"
                 style={{ color: 'color-mix(in srgb, var(--color-aurora) 40%, transparent)' }}
               >
                 {activity.duration}
@@ -147,16 +147,16 @@ export default function ActivityPicker({
         {/* Add custom activity card */}
         <button
           onClick={onAddCustom}
-          className="card-hover py-10 px-5 rounded-2xl flex flex-col items-center justify-center min-h-[180px] animate-fade-in group"
+          className="card-hover py-12 px-6 rounded-2xl flex flex-col items-center justify-center min-h-[200px] animate-fade-in group"
           style={{
             border: '2px dashed color-mix(in srgb, var(--color-muted) 25%, transparent)',
             animationDelay: `${filtered.length * 60}ms`,
           }}
         >
-          <span className="text-4xl text-whisper/30 group-hover:text-aurora/60 transition-all duration-500 mb-4 group-hover:scale-110">
+          <span className="text-5xl text-whisper/50 group-hover:text-aurora/70 transition-all duration-500 mb-5 group-hover:scale-110">
             +
           </span>
-          <span className="text-sm text-whisper/40 group-hover:text-whisper/70 transition-colors duration-500 font-light">
+          <span className="text-base text-whisper/60 group-hover:text-whisper/80 transition-colors duration-500 font-light">
             添加你的活动
           </span>
         </button>

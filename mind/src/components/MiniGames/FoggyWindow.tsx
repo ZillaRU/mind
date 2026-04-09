@@ -329,6 +329,30 @@ export default function FoggyWindow() {
       ctx.moveTo(0, ch / 2); ctx.lineTo(cw, ch / 2);
       ctx.stroke();
 
+      // Custom cursor: pointing finger
+      if (mouse.active) {
+        const fx = mouse.x, fy = mouse.y;
+        ctx.save();
+        ctx.translate(fx, fy);
+        // Finger
+        ctx.fillStyle = 'rgba(230,220,210,0.6)';
+        ctx.beginPath();
+        ctx.roundRect(-4, -18, 8, 22, 3);
+        ctx.fill();
+        // Fingernail
+        ctx.fillStyle = 'rgba(240,235,230,0.5)';
+        ctx.beginPath();
+        ctx.roundRect(-3, -18, 6, 6, [2, 2, 0, 0]);
+        ctx.fill();
+        // Wipe glow
+        const wg = ctx.createRadialGradient(0, -8, 0, 0, -8, 35);
+        wg.addColorStop(0, 'rgba(255,255,255,0.08)');
+        wg.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = wg;
+        ctx.beginPath(); ctx.arc(0, -8, 35, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      }
+
       // Poem
       poemTimer += dt;
       if (poemTimer > 600 && poemOpacity <= 0) {
@@ -336,13 +360,13 @@ export default function FoggyWindow() {
         poemOpacity = 0; poemTimer = 0;
       }
       if (poemOpacity > 0 || poemTimer < 60) {
-        if (poemTimer < 60) poemOpacity = Math.min(poemOpacity + 0.006 * dt, 0.5);
+        if (poemTimer < 60) poemOpacity = Math.min(poemOpacity + 0.006 * dt, 0.55);
         else if (poemTimer > 400) poemOpacity -= 0.005 * dt;
         if (poemOpacity > 0) {
-          ctx.font = '13px system-ui, -apple-system, "PingFang SC", sans-serif';
+          ctx.font = '15px system-ui, -apple-system, "PingFang SC", sans-serif';
           ctx.textAlign = 'center';
-          ctx.fillStyle = `rgba(200,210,225,${Math.max(0, poemOpacity)})`;
-          ctx.fillText(poem, cw / 2, ch - 30);
+          ctx.fillStyle = `rgba(210,220,235,${Math.max(0, poemOpacity)})`;
+          ctx.fillText(poem, cw / 2, ch - 35);
         }
       }
 
