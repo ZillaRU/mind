@@ -1,0 +1,348 @@
+// Curated public domain inspirations
+// All content is either public domain or freely usable
+// Music: composed before 1928
+// Poetry: classical Chinese poetry + pre-1928 Western poetry
+// Art: artists deceased >70 years, images from Wikimedia Commons
+
+export type InspirationType = 'music' | 'poetry' | 'art' | 'prose';
+
+export interface Inspiration {
+  type: InspirationType;
+  title: string;
+  author: string;
+  era?: string;
+  description: string;
+  imageUrl?: string;
+  text?: string;
+  listenHint?: string;
+}
+
+export const inspirations: Inspiration[] = [
+  // === Music (public domain) ===
+  {
+    type: 'music',
+    title: 'Gymnopédie No.1',
+    author: 'Erik Satie',
+    era: '1888',
+    description: '缓慢、简约、几乎静止的旋律。像是一个人在深夜独自坐在钢琴前，什么都不想，只是让手指自己走。',
+    listenHint: '搜索 "Gymnopédie No.1 Satie"',
+  },
+  {
+    type: 'music',
+    title: '月光',
+    author: 'Claude Debussy',
+    era: '1905',
+    description: '月光洒在水面上的声音。德彪西用音符画了一幅画，每个音符都像月光一样轻柔地落在琴键上。',
+    listenHint: '搜索 "Clair de Lune Debussy"',
+  },
+  {
+    type: 'music',
+    title: '夜曲 Op.9 No.2',
+    author: 'Frédéric Chopin',
+    era: '1832',
+    description: '肖邦写给夜晚的情书。左手如水波般流动，右手唱着无人打扰的旋律。',
+    listenHint: '搜索 "Nocturne Op.9 No.2 Chopin"',
+  },
+  {
+    type: 'music',
+    title: '哥德堡变奏曲',
+    author: 'J.S. Bach',
+    era: '1741',
+    description: '巴赫据说为一位失眠的伯爵写的。三十个变奏，像三十种安静的姿势，最后回到最初的咏叹调——一切如初。',
+    listenHint: '搜索 "Goldberg Variations Bach"',
+  },
+  {
+    type: 'music',
+    title: 'G弦上的咏叹调',
+    author: 'J.S. Bach',
+    era: '1730s',
+    description: '只用一根G弦演奏的旋律。限制反而成就了它——有时候少即是多。',
+    listenHint: '搜索 "Air on the G String Bach"',
+  },
+  {
+    type: 'music',
+    title: '月光奏鸣曲 第一乐章',
+    author: 'Ludwig van Beethoven',
+    era: '1801',
+    description: '贝多芬失聪后写的。三连音像月光下的脚步，缓慢而坚定。最深的悲伤里，藏着最温柔的力量。',
+    listenHint: '搜索 "Moonlight Sonata 1st movement"',
+  },
+  {
+    type: 'music',
+    title: '前奏曲 E小调 Op.28 No.4',
+    author: 'Frédéric Chopin',
+    era: '1839',
+    description: '肖邦要求"极慢地"演奏。左手不断重复同一个和弦，像心跳，像潮汐，像时间本身。',
+    listenHint: '搜索 "Prelude Op.28 No.4 Chopin"',
+  },
+  {
+    type: 'music',
+    title: '四季·冬',
+    author: 'Antonio Vivaldi',
+    era: '1725',
+    description: '维瓦尔第的冬天不冷。窗外下着雪，屋里有火，有人在拉琴。寒冷中的温暖，才是真正的温暖。',
+    listenHint: '搜索 "Vivaldi Winter Four Seasons"',
+  },
+  {
+    type: 'music',
+    title: '圣母颂',
+    author: 'Franz Schubert',
+    era: '1825',
+    description: '舒伯特根据席勒的诗谱曲。旋律像一条缓缓上升的线，越走越高，越走越安静。',
+    listenHint: '搜索 "Ave Maria Schubert"',
+  },
+  {
+    type: 'music',
+    title: '致爱丽丝',
+    author: 'Ludwig van Beethoven',
+    era: '1810',
+    description: '贝多芬写给学生的练习曲，却成了全世界最温柔的旋律。简单的音符，反复的温柔。',
+    listenHint: '搜索 "Für Elise Beethoven"',
+  },
+
+  // === Poetry (public domain) ===
+  {
+    type: 'poetry',
+    title: '饮酒·其五',
+    author: '陶渊明',
+    era: '东晋',
+    text: '结庐在人境，而无车马喧。\n问君何能尔？心远地自偏。\n采菊东篱下，悠然见南山。\n山气日夕佳，飞鸟相与还。\n此中有真意，欲辨已忘言。',
+    description: '在喧嚣中找到安静，不是逃离，而是心远了。',
+  },
+  {
+    type: 'poetry',
+    title: '春江花月夜（节选）',
+    author: '张若虚',
+    era: '唐',
+    text: '春江潮水连海平，海上明月共潮生。\n滟滟随波千万里，何处春江无月明！\n\n江畔何人初见月？江月何年初照人？\n人生代代无穷已，江月年年望相似。',
+    description: '被誉为"孤篇盖全唐"。月亮照了千年，问题问了千年，答案始终是同一个。',
+  },
+  {
+    type: 'poetry',
+    title: '枫桥夜泊',
+    author: '张继',
+    era: '唐',
+    text: '月落乌啼霜满天，\n江枫渔火对愁眠。\n姑苏城外寒山寺，\n夜半钟声到客船。',
+    description: '一个落榜书生的失眠之夜，却写出了最温柔的夜晚。',
+  },
+  {
+    type: 'poetry',
+    title: '行路难·其一（节选）',
+    author: '李白',
+    era: '唐',
+    text: '行路难，行路难，多歧路，今安在？\n长风破浪会有时，直挂云帆济沧海。',
+    description: '李白也会迷茫。但迷茫之后，他选择继续走。',
+  },
+  {
+    type: 'poetry',
+    title: '人闲桂花落',
+    author: '王维',
+    era: '唐',
+    text: '人闲桂花落，夜静春山空。\n月出惊山鸟，时鸣春涧中。',
+    description: '王维的诗里没有"我"。只有桂花在落，月亮在升，鸟在叫。人闲了，世界就满了。',
+  },
+  {
+    type: 'poetry',
+    title: '定风波（节选）',
+    author: '苏轼',
+    era: '宋',
+    text: '莫听穿林打叶声，何妨吟啸且徐行。\n竹杖芒鞋轻胜马，谁怕？\n一蓑烟雨任平生。',
+    description: '下雨了。别人跑，他走。不是不怕淋湿，是淋湿了也无所谓。',
+  },
+  {
+    type: 'poetry',
+    title: 'The Road Not Taken',
+    author: 'Robert Frost',
+    era: '1916',
+    text: 'Two roads diverged in a wood, and I—\nI took the one less traveled by,\nAnd that has made all the difference.',
+    description: '两条路，他选了少有人走的那条。不是因为那条更好，而是因为那是他的。',
+  },
+  {
+    type: 'poetry',
+    title: 'If—（节选）',
+    author: 'Rudyard Kipling',
+    era: '1910',
+    text: 'If you can fill the unforgiving minute\nWith sixty seconds\' worth of distance run,\nYours is the Earth and everything that\'s in it,\nAnd—which is more—you\'ll be a Man, my son!',
+    description: '吉卜林写给儿子的诗。不是教你成功，而是教你如何在任何境遇中保持自己。',
+  },
+  {
+    type: 'poetry',
+    title: 'I Wandered Lonely as a Cloud',
+    author: 'William Wordsworth',
+    era: '1807',
+    text: 'I wandered lonely as a cloud\nThat floats on high o\'er vales and hills,\nWhen all at once I saw a crowd,\nA host, of golden daffodils.',
+    description: '华兹华斯独自散步时看到了一片水仙花。孤独不是没有人，是还没有注意到花。',
+  },
+  {
+    type: 'poetry',
+    title: '相见欢',
+    author: '李煜',
+    era: '五代',
+    text: '无言独上西楼，月如钩。\n寂寞梧桐深院锁清秋。\n\n剪不断，理还乱，是离愁。\n别是一般滋味在心头。',
+    description: '亡国之君写的不是亡国，是每个人心里都有的那种说不清的愁。',
+  },
+
+  // === Prose (public domain, short excerpts that fit one screen) ===
+  {
+    type: 'prose',
+    title: '瓦尔登湖（节选）',
+    author: 'Henry David Thoreau',
+    era: '1854',
+    text: '我步入丛林，因为我希望生活得有意义。我希望活得深刻，汲取生命中所有的精华。把非生命的一切都击溃，以免让我在生命终结时，发现自己从来没有活过。',
+    description: '梭罗在瓦尔登湖畔独居两年。这段话是他对"为什么离开"的回答。',
+  },
+  {
+    type: 'prose',
+    title: '小王子（节选）',
+    author: 'Antoine de Saint-Exupéry',
+    era: '1943',
+    text: '"人们坐进快车里，却不知道自己要寻找什么。于是他们便盲目地忙碌，来回打转。"小王子说。\n\n"这不奇怪，"我说，"一个人在花园里种了五千朵玫瑰，却找不到自己想要的东西。"\n\n"可是，他们要找的东西，也许就在一朵玫瑰或者一点水里……"',
+    description: '小王子不明白大人为什么总是在赶路。也许我们也不明白。',
+  },
+  {
+    type: 'prose',
+    title: '浮生六记·闲情记趣（节选）',
+    author: '沈复',
+    era: '清',
+    text: '见藐小之物必细察其纹理，故时有物外之趣。\n\n夏蚊成雷，私拟作群鹤舞于空中，心之所向，则或千或百，果然鹤也。昂首观之，项为之强。又留蚊于素帐中，徐喷以烟，使之冲烟而飞鸣，作青云白鹤观，果如鹤唳云端，为之怡然称快。',
+    description: '沈复把蚊子想象成白鹤，把烟想象成云。快乐不需要很贵的东西，只需要一双愿意想象的眼睛。',
+  },
+  {
+    type: 'prose',
+    title: '湖心亭看雪（节选）',
+    author: '张岱',
+    era: '明',
+    text: '大雪三日，湖中人鸟声俱绝。\n\n是日更定矣，余拏一小舟，拥毳衣炉火，独往湖心亭看雪。雾凇沆砀，天与云与山与水，上下一白。湖上影子，惟长堤一痕、湖心亭一点、与余舟一芥、舟中人两三粒而已。',
+    description: '张岱在冬夜独自划船去看雪。整个世界只剩下一痕、一点、一芥、两三粒。孤独到了极致，就是美。',
+  },
+  {
+    type: 'prose',
+    title: '老人与海（节选）',
+    author: 'Ernest Hemingway',
+    era: '1952',
+    text: '他是个独自在湾流中一条小船上钓鱼的老人，至今已去了八十四天，一条鱼也没逮住。\n\n他消瘦而憔悴，脖颈上有些很深的皱纹。腮帮上有些褐斑，那是太阳在热带海面上反射的光线所引起的良性皮肤癌变。',
+    description: '海明威说："一个人可以被毁灭，但不能被打败。"老人什么都没抓到，但他每天都在出海。',
+  },
+  {
+    type: 'prose',
+    title: '枕草子（节选）',
+    author: '清少纳言',
+    era: '约1000年',
+    text: '春天是破晓时分最好。渐渐发白的山顶，有些微亮，泛紫的云彩细细飘浮在那里。\n\n夏天是夜里最好。有月亮的时候，自不必说了。就是暗夜里，许多萤火虫到处飞着，或只有一两个发出微光点点，也是很有趣味的。',
+    description: '清少纳言写了一千年前她觉得美好的时刻。一千年后读起来，还是觉得美好。',
+  },
+  {
+    type: 'prose',
+    title: '人间词话（节选）',
+    author: '王国维',
+    era: '1908',
+    text: '古今之成大事业、大学问者，必经过三种之境界：\n\n"昨夜西风凋碧树。独上高楼，望尽天涯路。"此第一境也。\n"衣带渐宽终不悔，为伊消得人憔悴。"此第二境也。\n"众里寻他千百度。蓦然回首，那人却在，灯火阑珊处。"此第三境也。',
+    description: '王国维用三句词概括了所有伟大的过程：迷茫、坚持、然后突然明白了。',
+  },
+  {
+    type: 'prose',
+    title: '道德经（节选）',
+    author: '老子',
+    era: '约公元前6世纪',
+    text: '上善若水。水善利万物而不争，处众人之所恶，故几于道。\n\n居善地，心善渊，与善仁，言善信，政善治，事善能，动善时。夫唯不争，故无尤。',
+    description: '老子说最接近"道"的东西是水。水不争，但水无处不在。',
+  },
+  {
+    type: 'prose',
+    title: '牧羊少年奇幻之旅（节选）',
+    author: 'Paulo Coelho',
+    era: '1988',
+    text: '"当你真心渴望某样东西时，整个宇宙都会联合起来帮助你完成。"\n\n男孩看着沙漠。沙漠沉默着，但沙漠知道他什么时候来，什么时候走。沙漠从不着急。',
+    description: '一个牧羊少年去寻找宝藏，最后发现宝藏就在他出发的地方。',
+  },
+  {
+    type: 'prose',
+    title: '东坡志林（节选）',
+    author: '苏轼',
+    era: '宋',
+    text: '临皋亭下不数十步，便是大江，其半是峨眉雪水。吾饮食沐浴皆取焉，何必归乡哉！\n\n江山风月，本无常主，闲者便是主人。',
+    description: '苏轼被贬黄州，没有房子没有钱，但他发现江山风月没有主人，谁闲下来，谁就是主人。',
+  },
+  {
+    type: 'prose',
+    title: '月亮与六便士（节选）',
+    author: 'W. Somerset Maugham',
+    era: '1919',
+    text: '我总觉得大多数人这样度过一生好像欠缺点什么。我承认这种生活的社会价值，也看到了它的井然有序的幸福。但我的血液里却有一种强烈的渴望，渴望一种更狂放不羁的旅途。',
+    description: '毛姆借用了高更的故事：一个证券经纪人突然抛弃一切去画画。满地都是六便士，他却抬头看见了月亮。',
+  },
+  {
+    type: 'prose',
+    title: '世说新语（节选）',
+    author: '刘义庆',
+    era: '南朝宋',
+    text: '王子猷居山阴，夜大雪，眠觉，开室，命酌酒。四望皎然，因起彷徨，咏左思《招隐诗》。忽忆戴安道，时戴在剡，即便夜乘小船就之。经宿方至，造门不前而返。\n\n人问其故，王曰："吾本乘兴而行，兴尽而返，何必见戴？"',
+    description: '王徽之半夜下雪，突然想去见朋友，划了一夜船到了门口，又回去了。为什么？因为兴致到了就出发，兴致尽了就回来。不需要理由。',
+  },
+
+  // === Art (public domain, Wikimedia Commons) ===
+  {
+    type: 'art',
+    title: '星月夜',
+    author: 'Vincent van Gogh',
+    era: '1889',
+    description: '梵高在精神病院里画的夜空。漩涡般的星空下有一个安静的村庄。他看到的夜空，比任何人都热烈。',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/600px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
+  },
+  {
+    type: 'art',
+    title: '睡莲',
+    author: 'Claude Monet',
+    era: '1906',
+    description: '莫奈晚年几乎只画睡莲。他不是在画花，是在画光落在水面上的样子。同一片池塘，他画了三百多次。',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Art_Institute_of_Chicago.jpg/600px-Claude_Monet_-_Water_Lilies_-_1906%2C_Art_Institute_of_Chicago.jpg',
+  },
+  {
+    type: 'art',
+    title: '神奈川冲浪里',
+    author: '葛饰北斋',
+    era: '1831',
+    description: '北斋画这幅画时已经七十多岁了。巨浪要吞没一切，但远处的富士山纹丝不动。大浪之下，有恒常。',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/600px-Tsunami_by_hokusai_19th_century.jpg',
+  },
+  {
+    type: 'art',
+    title: '向日葵',
+    author: 'Vincent van Gogh',
+    era: '1888',
+    description: '梵高用最浓烈的黄色画向日葵。它们在花瓶里，有的盛开，有的枯萎。每一朵都是生命的某个瞬间。',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vincent_Willem_van_Gogh_127.jpg/600px-Vincent_Willem_van_Gogh_127.jpg',
+  },
+  {
+    type: 'art',
+    title: '日出·印象',
+    author: 'Claude Monet',
+    era: '1872',
+    description: '这幅画给了"印象派"这个名字。雾气中的港口，太阳只是一个橙色的圆。莫奈画的不是风景，是印象——你第一眼看到的东西。',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Monet_-_Impression%2C_Sunrise.jpg/600px-Monet_-_Impression%2C_Sunrise.jpg',
+  },
+  {
+    type: 'art',
+    title: '凯风快晴',
+    author: '葛饰北斋',
+    era: '1830',
+    description: '也叫"赤富士"。夏天的清晨，富士山被朝霞染成红色。北斋画了三十六次富士山，每一次都不一样。重复不是无聊，是深入。',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Fine_wind%2C_clear_morning.jpg/600px-Fine_wind%2C_clear_morning.jpg',
+  },
+  {
+    type: 'art',
+    title: '呐喊',
+    author: 'Edvard Munch',
+    era: '1893',
+    description: '蒙克说："我和两个朋友一起散步，太阳下山了——突然间，天空变得血红。我停下脚步，靠在栏杆上，感到一声无尽的尖叫穿过自然。"焦虑的尽头，是承认它。',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg/600px-Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg',
+  },
+  {
+    type: 'art',
+    title: '大碗岛的星期天下午',
+    author: 'Georges Seurat',
+    era: '1886',
+    description: '修拉用了两年的点彩画法完成这幅画。几百万个色点，远处看才是一幅画。有时候，退后一步才能看清全貌。',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/A_Sunday_on_La_Grande_Jatte.jpg/600px-A_Sunday_on_La_Grande_Jatte.jpg',
+  },
+];

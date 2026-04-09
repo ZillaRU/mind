@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-${nonce}'; img-src https:;">
+<style>
+:root {
+  --midnight: #0e0e14;
+  --deep: #16161f;
+  --surface: #1e1e2a;
+  --muted: #2e2e3e;
+  --soft: #8888a0;
+  --whisper: #d0d0e0;
+  --glow: #e8e0ff;
+  --warm: #ffe8c8;
+  --aurora: #a090ff;
+  --aurora-dim: #6a5ac0;
+  --ember: #ff8866;
+  --moss: #6abe8e;
+  --rain: #88a8e0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--midnight);
+  color: var(--whisper);
+  font-family: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 2px; }
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.08); opacity: 0.5; }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-in {
+  animation: fadeIn 0.5s ease both;
+}
+
+/* Layout */
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2rem;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--whisper);
+  letter-spacing: 0.15em;
+}
+
+.logo span {
+  color: var(--glow);
+  opacity: 0.75;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.75rem;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ctrl-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  color: var(--whisper);
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  opacity: 0.75;
+}
+.ctrl-btn:hover {
+  opacity: 1;
+  background: rgba(144,128,255,0.1);
+  border-color: rgba(144,128,255,0.2);
+}
+.ctrl-btn.active {
+  opacity: 1;
+  background: rgba(144,128,255,0.15);
+  border-color: rgba(144,128,255,0.3);
+  box-shadow: 0 0 10px rgba(144,128,255,0.15);
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: 0.75rem;
+  color: var(--soft);
+  font-weight: 300;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.05em;
+}
+
+/* Categories */
+.categories {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.cat-btn {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  color: var(--soft);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.cat-btn:hover {
+  color: var(--whisper);
+  border-color: rgba(255,255,255,0.1);
+}
+.cat-btn.active {
+  color: var(--glow);
+  background: rgba(144,128,255,0.1);
+  border-color: rgba(144,128,255,0.25);
+}
+
+/* Activity Grid */
+.activity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.activity-card {
+  padding: 1rem;
+  border-radius: 0.875rem;
+  border: 1px solid rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.02);
+  cursor: pointer;
+  transition: all 0.4s ease;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+}
+.activity-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(144,128,255,0.06), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.activity-card:hover {
+  border-color: rgba(144,128,255,0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px -4px rgba(0,0,0,0.3);
+}
+.activity-card:hover::before {
+  opacity: 1;
+}
+
+.card-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.card-name {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--whisper);
+  margin-bottom: 0.25rem;
+}
+
+.card-duration {
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: var(--aurora);
+  opacity: 0.65;
+}
+
+.card-desc {
+  font-size: 0.65rem;
+  color: var(--soft);
+  margin-top: 0.4rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Timer View */
+.timer-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.timer-back {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.25rem;
+  background: none;
+  border: none;
+  color: var(--soft);
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.3s;
+  padding: 0.25rem 0.5rem;
+}
+.timer-back:hover { color: var(--whisper); }
+
+.timer-activity-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.timer-activity-name {
+  font-size: 0.85rem;
+  color: var(--whisper);
+  font-weight: 300;
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
+
+.timer-display {
+  font-size: 3.5rem;
+  font-weight: 200;
+  color: var(--glow);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
+
+.timer-guide {
+  max-width: 320px;
+  font-size: 0.8rem;
+  color: var(--soft);
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 2.5rem;
+}
+
+.timer-guide p {
+  margin-bottom: 0.5rem;
+}
+
+.finish-btn {
+  padding: 0.7rem 2.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(144,128,255,0.3);
+  background: rgba(144,128,255,0.1);
+  color: var(--glow);
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.4s ease;
+  letter-spacing: 0.05em;
+}
+.finish-btn:hover {
+  background: rgba(144,128,255,0.2);
+  box-shadow: 0 0 20px rgba(144,128,255,0.15);
+}
+
+/* Complete View */
+.complete-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 3rem;
+}
+
+.complete-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.8s ease both;
+}
+
+.complete-title {
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--glow);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.1em;
+}
+
+.complete-sub {
+  font-size: 0.75rem;
+  color: var(--soft);
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.continue-btn {
+  padding: 0.7rem 2.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(144,128,255,0.3);
+  background: rgba(144,128,255,0.1);
+  color: var(--glow);
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.4s ease;
+  letter-spacing: 0.05em;
+}
+.continue-btn:hover {
+  background: rgba(144,128,255,0.2);
+  box-shadow: 0 0 20px rgba(144,128,255,0.15);
+}
+
+/* Sound picker dropdown */
+.sound-panel, .theme-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: rgba(18,18,26,0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  display: flex;
+  gap: 0.35rem;
+  z-index: 10;
+  box-shadow: 0 8px 32px -8px rgba(0,0,0,0.5);
+}
+
+.sound-btn, .theme-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  color: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+.sound-btn:hover, .theme-btn:hover {
+  background: rgba(144,128,255,0.1);
+  border-color: rgba(144,128,255,0.2);
+}
+.sound-btn.active {
+  background: rgba(144,128,255,0.15);
+  border-color: rgba(144,128,255,0.3);
+  box-shadow: 0 0 10px rgba(144,128,255,0.15);
+  transform: scale(1.1);
+}
+.theme-btn.active {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px var(--midnight), 0 0 0 3px var(--aurora), 0 0 12px rgba(144,128,255,0.3);
+  opacity: 1 !important;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .activity-grid { grid-template-columns: 1fr; }
+  .timer-display { font-size: 2.5rem; }
+}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+
+<script nonce="${nonce}">
+// ===== Activities Data =====
+const activities = [
+  // 🤲 动手
+  { id: 'wrist', name: '手腕画圆', icon: '🤸', category: 'hands', duration: 120,
+    desc: '双手合十，缓慢转动手腕，顺逆各10圈',
+    guide: '双手合十放在胸前。\n\n缓慢转动手腕，顺时针10圈。\n感受手腕每一个角度的拉伸。\n\n然后逆时针10圈。\n越慢越好，不要着急。\n\n让手指的紧张慢慢释放。' },
+  { id: 'fingers', name: '指尖伸展', icon: '🖐️', category: 'hands', duration: 120,
+    desc: '张开五指用力伸展，然后握拳放松',
+    guide: '张开五指，用力伸展，保持3秒。\n\n然后慢慢握拳，紧握3秒。\n\n重复10次。\n\n感受指尖到掌心的紧张与释放。\n打字久了的手，需要这样的节奏。' },
+  { id: 'palms', name: '揉捏手心', icon: '🤲', category: 'hands', duration: 180,
+    desc: '用拇指揉捏另一只手的掌心，画小圆圈',
+    guide: '用大拇指按住另一只手的掌心。\n\n缓慢画小圆圈，从掌心中心向外。\n\n找到那个酸酸的地方，多揉几下。\n每只手各1分钟。\n\n这是手部最被忽略的放松方式。' },
+
+  // 🫧 身体
+  { id: 'neck', name: '颈部画圆', icon: '🦒', category: 'body', duration: 120,
+    desc: '下巴画大圆，缓慢转动颈部',
+    guide: '坐直，肩膀放松下沉。\n\n下巴慢慢低下，靠近胸口。\n向右画大圆，右耳靠近右肩。\n继续向后仰，看天花板。\n向左画过来，左耳靠近左肩。\n\n顺时针5圈，逆时针5圈。\n越慢越好。' },
+  { id: 'shoulders', name: '肩部升降', icon: '💆', category: 'body', duration: 120,
+    desc: '双肩耸起靠近耳朵，保持后放下',
+    guide: '坐直，双臂自然下垂。\n\n双肩慢慢耸起，靠近耳朵。\n保持3秒，感受肩颈的紧张。\n\n然后「啪」地放下，让重力接管。\n\n重复10次。\n感受肩膀的重量一点点卸下。' },
+  { id: 'twist', name: '坐姿扭转', icon: '🔄', category: 'body', duration: 180,
+    desc: '坐直扭转上半身，左右各保持15秒',
+    guide: '坐直，双脚平放地面。\n\n右手放在左膝外侧，身体向左扭转。\n看左肩后方，保持15秒。\n\n慢慢回正，换边。\n左手放在右膝外侧，向右扭转。\n保持15秒。\n\n感受脊柱一节一节地旋转。' },
+  { id: 'stand', name: '站起来走走', icon: '🧍', category: 'body', duration: 180,
+    desc: '离开椅子，走动一下，伸展四肢',
+    guide: '站起来。\n\n不需要做任何特别的事。\n走到窗边，伸个懒腰。\n转转脚踝，活动活动膝盖。\n\n如果可以，去倒杯水。\n\n就是站起来，让身体知道你还活着。' },
+  { id: 'wall', name: '靠墙天使', icon: '🏔️', category: 'body', duration: 180,
+    desc: '背靠墙站立，双臂贴墙上下滑动',
+    guide: '背靠墙站立。\n脚跟离墙一脚距离。\n\n双臂贴墙，呈W形。\n慢慢向上滑动到Y形。\n再慢慢滑回来。\n\n重复10次。\n感受肩胛骨在墙上滑动。\n这是纠正圆肩最好的动作。' },
+
+  // 👁️ 感官
+  { id: 'eye202020', name: '20-20-20 护眼', icon: '👁️', category: 'senses', duration: 60,
+    desc: '看6米外的物体20秒，给睫状肌放个假',
+    guide: '放下鼠标，离开屏幕。\n\n找6米以外的东西——窗外的树、对面的墙、远处的建筑。\n\n盯着看20秒。\n让眼睛的焦距切换到远处。\n\n这是给睫状肌最温柔的假期。\n每20分钟做一次，眼睛会感谢你。' },
+  { id: 'window', name: '窗外远眺', icon: '🪟', category: 'senses', duration: 120,
+    desc: '走到窗边，找最远的地方看',
+    guide: '走到窗边。\n\n找最远的地方看。\n天际线、远处的建筑、飘过的云。\n\n让视线漫游，不聚焦任何一点。\n\n注意光线的变化、颜色的层次。\n\n2分钟后回来，世界会清晰一点。' },
+  { id: 'closeeyes', name: '闭眼一分钟', icon: '😌', category: 'senses', duration: 120,
+    desc: '闭上眼睛，用耳朵代替眼睛感受世界',
+    guide: '闭上眼睛。\n\n不用做任何事，就是闭着。\n\n感受键盘的余温。\n空调吹来的风。\n同事的键盘声。\n远处电梯的嗡嗡声。\n\n用耳朵代替眼睛，看这个世界。' },
+  { id: 'water', name: '喝一杯水', icon: '💧', category: 'senses', duration: 120,
+    desc: '慢慢喝一杯温水，感受水流过喉咙',
+    guide: '站起来，去倒一杯温水。\n\n不要牛饮。\n小口小口地喝。\n\n感受水进入口腔的温度。\n感受它流过喉咙的感觉。\n\n这是身体最基本的需求。\n你有多久没有好好喝过水了？' },
+  { id: 'posture', name: '调整坐姿', icon: '🪑', category: 'senses', duration: 60,
+    desc: '双脚平放，背部挺直，肩膀下沉',
+    guide: '双脚平放地面，与肩同宽。\n\n背部离开椅背，自己撑住。\n肩膀下沉，远离耳朵。\n下巴微收，像有人在头顶轻轻拉你。\n\n保持这个姿势，深呼吸3次。\n\n每次呼吸都让自己再高一点点。' },
+
+  // ✨ 心理
+  { id: 'breath478', name: '4-7-8 呼吸法', icon: '🌬️', category: 'mind', duration: 180,
+    desc: '吸气4秒，屏息7秒，呼气8秒',
+    guide: '这是给神经系统的重启键。\n\n用鼻子慢慢吸气，数4秒。\n屏住呼吸，数7秒。\n用嘴缓缓呼气，数8秒。\n\n重复4轮。\n\n如果7秒太长，可以缩短到3-5秒。\n重要的是节奏，不是时长。' },
+  { id: 'bodyscan', name: '身体扫描', icon: '🧘', category: 'mind', duration: 300,
+    desc: '从脚到头，感受身体每个部位的状态',
+    guide: '闭上眼睛。\n\n注意力放到脚趾——它们是什么感觉？\n慢慢向上：脚、小腿、膝盖、大腿。\n\n臀部、腹部、胸部、后背。\n肩膀、手臂、手掌、手指。\n\n脖子、下巴、眼睛、额头。\n头顶。\n\n不需要改变什么，只是感受。\n紧张的地方，呼吸就多停留一下。' },
+  { id: 'gratitude', name: '感恩三件事', icon: '🙏', category: 'mind', duration: 120,
+    desc: '想三件今天值得感恩的小事',
+    guide: '不需要大事。\n\n一杯好喝的咖啡。\n一个终于修好的 bug。\n窗外的阳光。\n同事递过来的一颗糖。\n今天没有加班。\n\n想三件就好。\n\n小事也值得感恩。\n尤其是小事。' },
+  { id: 'spaceout', name: '放空', icon: '🌀', category: 'mind', duration: 180,
+    desc: '什么都不做，什么都不想，允许大脑待机',
+    guide: '什么都不做。\n什么都不想。\n\n允许大脑进入待机模式。\n就像电脑休眠一样。\n\n如果走神了，没关系。\n轻轻回来就好。\n\n你不需要时刻都在产出。\n放空，也是一种生产力。' },
+  { id: 'selftalk', name: '对自己说句话', icon: '💬', category: 'mind', duration: 60,
+    desc: '在心里对自己说一句善意的话',
+    guide: '在心里对自己说一句话。\n\n「今天也辛苦了。」\n「你已经做得很好了。」\n「没关系，慢慢来。」\n\n简单，但有效。\n\n你对自己说的每一句话，\n都在塑造你对自己的看法。\n\n说句好听的吧。' },
+];
+
+const categories = [
+  { value: 'all', label: '全部' },
+  { value: 'hands', label: '🤲 动手' },
+  { value: 'body', label: '🫧 身体' },
+  { value: 'senses', label: '👁️ 感官' },
+  { value: 'mind', label: '✨ 心理' },
+];
+
+const sounds = [
+  { id: 'silence', icon: '🤫' },
+  { id: 'rain', icon: '🌧️' },
+  { id: 'wind', icon: '🍃' },
+  { id: 'white', icon: '📻' },
+];
+
+const themes = [
+  { id: 'aurora', icon: '🌌', aurora: '#a090ff', glow: '#e8e0ff' },
+  { id: 'dusk', icon: '🌅', aurora: '#e8a878', glow: '#ffe8d0' },
+  { id: 'ink', icon: '🪭', aurora: '#888888', glow: '#e0e0e0' },
+];
+
+// ===== State =====
+const state = {
+  view: 'picker',
+  category: 'all',
+  selectedActivity: null,
+  timerSeconds: 0,
+  timerInterval: null,
+  currentSound: 'silence',
+  currentTheme: 'aurora',
+  showSoundPanel: false,
+  showThemePanel: false,
+};
+
+// ===== Sound Engine =====
+const audio = {
+  ctx: null,
+  source: null,
+  gain: null,
+
+  init() {
+    if (this.ctx) return;
+    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    this.gain = this.ctx.createGain();
+    this.gain.gain.value = 0.15;
+    this.gain.connect(this.ctx.destination);
+  },
+
+  play(type) {
+    this.init();
+    this.stop();
+    if (type === 'silence') return;
+
+    const sr = this.ctx.sampleRate;
+    const len = sr * 4;
+    const buf = this.ctx.createBuffer(2, len, sr);
+    for (let ch = 0; ch < 2; ch++) {
+      const d = buf.getChannelData(ch);
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (let i = 0; i < len; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        d[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+        b6 = white * 0.115926;
+      }
+    }
+
+    const src = this.ctx.createBufferSource();
+    src.buffer = buf;
+    src.loop = true;
+
+    const filter = this.ctx.createBiquadFilter();
+    if (type === 'rain') {
+      filter.type = 'bandpass';
+      filter.frequency.value = 2500;
+      filter.Q.value = 0.4;
+    } else if (type === 'wind') {
+      filter.type = 'lowpass';
+      filter.frequency.value = 350;
+      filter.Q.value = 0.8;
+    } else {
+      filter.type = 'lowpass';
+      filter.frequency.value = 6000;
+    }
+
+    src.connect(filter);
+    filter.connect(this.gain);
+    src.start();
+    this.source = src;
+  },
+
+  stop() {
+    if (this.source) {
+      try { this.source.stop(); } catch(e) {}
+      this.source = null;
+    }
+  }
+};
+
+// ===== Render =====
+function render() {
+  const app = document.getElementById('app');
+  if (state.view === 'picker') {
+    app.innerHTML = renderPicker();
+  } else if (state.view === 'timer') {
+    app.innerHTML = renderTimer();
+  } else if (state.view === 'complete') {
+    app.innerHTML = renderComplete();
+  }
+  bindEvents();
+}
+
+function renderPicker() {
+  const filtered = state.category === 'all'
+    ? activities
+    : activities.filter(a => a.category === state.category);
+
+  return `
+    <div class="header animate-in">
+      <div class="header-left">
+        <div class="logo">慢 <span>mind</span></div>
+      </div>
+      <div class="header-controls" style="position:relative">
+        <button class="ctrl-btn ${state.showThemePanel ? 'active' : ''}" data-action="toggle-theme" title="主题">🎨</button>
+        <button class="ctrl-btn ${state.showSoundPanel ? 'active' : ''}" data-action="toggle-sound" title="氛围音">🔊</button>
+        ${state.showThemePanel ? `
+          <div class="theme-panel animate-in">
+            ${themes.map(t => `
+              <button class="theme-btn ${state.currentTheme === t.id ? 'active' : ''}"
+                data-action="set-theme" data-theme="${t.id}"
+                style="background:${t.aurora};opacity:${state.currentTheme === t.id ? 1 : 0.4}"
+                title="${t.id}">${t.icon}</button>
+            `).join('')}
+          </div>
+        ` : ''}
+        ${state.showSoundPanel ? `
+          <div class="sound-panel animate-in">
+            ${sounds.map(s => `
+              <button class="sound-btn ${state.currentSound === s.id ? 'active' : ''}"
+                data-action="set-sound" data-sound="${s.id}"
+                title="${s.id}">${s.icon}</button>
+            `).join('')}
+          </div>
+        ` : ''}
+      </div>
+    </div>
+
+    <p class="subtitle animate-in" style="animation-delay:50ms">在工位上，给自己一段慢时光</p>
+
+    <div class="categories animate-in" style="animation-delay:100ms">
+      ${categories.map(c => `
+        <button class="cat-btn ${state.category === c.value ? 'active' : ''}"
+          data-action="set-category" data-category="${c.value}">${c.label}</button>
+      `).join('')}
+    </div>
+
+    <div class="activity-grid">
+      ${filtered.map((a, i) => `
+        <button class="activity-card animate-in" data-action="select-activity" data-id="${a.id}"
+          style="animation-delay:${120 + i * 40}ms">
+          <span class="card-icon">${a.icon}</span>
+          <div class="card-name">${a.name}</div>
+          <div class="card-duration">${formatDuration(a.duration)}</div>
+          <div class="card-desc">${a.desc}</div>
+        </button>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderTimer() {
+  const a = state.selectedActivity;
+  const mins = Math.floor(state.timerSeconds / 60);
+  const secs = state.timerSeconds % 60;
+  const timeStr = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+  return `
+    <div class="timer-view animate-in" style="position:relative">
+      <button class="timer-back" data-action="back">← 返回</button>
+      <div class="timer-activity-icon">${a.icon}</div>
+      <div class="timer-activity-name">${a.name}</div>
+      <div class="timer-display">${timeStr}</div>
+      <div class="timer-guide">${a.guide.split('\n').map(p => p ? `<p>${p}</p>` : '<br>').join('')}</div>
+      <button class="finish-btn" data-action="finish">✨ 完成了</button>
+    </div>
+  `;
+}
+
+function renderComplete() {
+  const a = state.selectedActivity;
+  const messages = [
+    '慢慢来，比较快',
+    '你值得这段休息',
+    '代码不会跑掉，但身体会',
+    '休息也是生产力',
+    '世界等你回来',
+  ];
+  const msg = messages[Math.floor(Math.random() * messages.length)];
+
+  return `
+    <div class="complete-view animate-in">
+      <div class="complete-icon">✨</div>
+      <div class="complete-title">${msg}</div>
+      <div class="complete-sub">你刚刚完成了 ${a.icon} ${a.name}</div>
+      <button class="continue-btn" data-action="continue">继续</button>
+    </div>
+  `;
+}
+
+function formatDuration(seconds) {
+  if (seconds < 60) return `${seconds} 秒`;
+  const m = seconds / 60;
+  return m % 1 === 0 ? `${m} 分钟` : `${Math.floor(m)} 分${Math.round((m % 1) * 60)} 秒`;
+}
+
+// ===== Events =====
+function bindEvents() {
+  document.querySelectorAll('[data-action]').forEach(el => {
+    el.onclick = (e) => {
+      e.stopPropagation();
+      const action = el.dataset.action;
+
+      switch (action) {
+        case 'set-category':
+          state.category = el.dataset.category;
+          state.showSoundPanel = false;
+          state.showThemePanel = false;
+          render();
+          break;
+
+        case 'select-activity':
+          state.selectedActivity = activities.find(a => a.id === el.dataset.id);
+          state.timerSeconds = state.selectedActivity.duration;
+          state.view = 'timer';
+          state.showSoundPanel = false;
+          state.showThemePanel = false;
+          startTimer();
+          render();
+          break;
+
+        case 'back':
+          stopTimer();
+          state.view = 'picker';
+          render();
+          break;
+
+        case 'finish':
+          stopTimer();
+          state.view = 'complete';
+          render();
+          break;
+
+        case 'continue':
+          state.view = 'picker';
+          state.selectedActivity = null;
+          render();
+          break;
+
+        case 'toggle-sound':
+          state.showSoundPanel = !state.showSoundPanel;
+          state.showThemePanel = false;
+          render();
+          break;
+
+        case 'toggle-theme':
+          state.showThemePanel = !state.showThemePanel;
+          state.showSoundPanel = false;
+          render();
+          break;
+
+        case 'set-sound':
+          state.currentSound = el.dataset.sound;
+          audio.play(state.currentSound);
+          render();
+          break;
+
+        case 'set-theme':
+          state.currentTheme = el.dataset.theme;
+          applyTheme(state.currentTheme);
+          render();
+          break;
+      }
+    };
+  });
+}
+
+// ===== Timer =====
+function startTimer() {
+  stopTimer();
+  state.timerInterval = setInterval(() => {
+    state.timerSeconds--;
+    if (state.timerSeconds <= 0) {
+      stopTimer();
+      state.view = 'complete';
+      render();
+      return;
+    }
+    // Update just the timer display
+    const display = document.querySelector('.timer-display');
+    if (display) {
+      const mins = Math.floor(state.timerSeconds / 60);
+      const secs = state.timerSeconds % 60;
+      display.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (state.timerInterval) {
+    clearInterval(state.timerInterval);
+    state.timerInterval = null;
+  }
+}
+
+// ===== Theme =====
+function applyTheme(id) {
+  const t = themes.find(t => t.id === id);
+  if (!t) return;
+  document.documentElement.style.setProperty('--aurora', t.aurora);
+  document.documentElement.style.setProperty('--glow', t.glow);
+}
+
+// ===== Close panels on outside click =====
+document.addEventListener('click', (e) => {
+  if (state.showSoundPanel || state.showThemePanel) {
+    if (!e.target.closest('.header-controls')) {
+      state.showSoundPanel = false;
+      state.showThemePanel = false;
+      render();
+    }
+  }
+});
+
+// ===== Init =====
+render();
+</script>
+</body>
+</html>
