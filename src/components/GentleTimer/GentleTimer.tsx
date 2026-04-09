@@ -111,7 +111,7 @@ export default function GentleTimer({ activityName, activityIcon, guide, experie
           )}
         </div>
 
-        <p className="text-xs text-whisper/35 mt-6 font-mono animate-soft-pulse">
+        <p className="text-xs text-whisper/55 mt-6 font-mono animate-soft-pulse">
           {isRunning ? '没有倒计时，只有此刻' : '准备好了就点开始'}
         </p>
       </div>

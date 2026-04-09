@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-midnight: #0a0a0f;
-  --color-deep: #12121a;
-  --color-surface: #1a1a26;
-  --color-muted: #2a2a3a;
-  --color-soft: #6a6a7a;
-  --color-whisper: #b0b0c0;
-  --color-glow: #d8ccff;
-  --color-warm: #ffe0b8;
-  --color-aurora: #9080ff;
-  --color-aurora-dim: #5a4faa;
-  --color-ember: #ff7b5a;
-  --color-moss: #5aae7e;
-  --color-rain: #7b9cde;
+  --color-midnight: #0e0e14;
+  --color-deep: #16161f;
+  --color-surface: #1e1e2a;
+  --color-muted: #2e2e3e;
+  --color-soft: #8888a0;
+  --color-whisper: #d0d0e0;
+  --color-glow: #e8e0ff;
+  --color-warm: #ffe8c8;
+  --color-aurora: #a090ff;
+  --color-aurora-dim: #6a5ac0;
+  --color-ember: #ff8866;
+  --color-moss: #6abe8e;
+  --color-rain: #88a8e0;
   --font-sans: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
 }

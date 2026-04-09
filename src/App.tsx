@@ -211,11 +211,11 @@ export default function App() {
               }}
             >
               <div className="mb-3">
-                <p className="text-xs text-whisper/40 mb-2 tracking-wide">氛围</p>
+                <p className="text-xs text-whisper/60 mb-2 tracking-wide">氛围</p>
                 <AmbientSoundPicker currentSound={currentSound} onSelect={handleSoundSelect} />
               </div>
               <div>
-                <p className="text-xs text-whisper/40 mb-2 tracking-wide">主题</p>
+                <p className="text-xs text-whisper/60 mb-2 tracking-wide">主题</p>
                 <ThemePicker />
               </div>
             </div>
@@ -237,19 +237,19 @@ export default function App() {
         >
           <h3 className="text-sm font-normal text-whisper/80 mb-5">过去的慢时光</h3>
           {journal.length === 0 ? (
-            <p className="text-xs text-whisper/40">还没有记录</p>
+            <p className="text-xs text-whisper/60">还没有记录</p>
           ) : (
             <div className="space-y-4">
               {journal.map((entry, i) => (
                 <div key={i} className="pb-3" style={{ borderBottom: '1px solid color-mix(in srgb, var(--color-muted) 10%, transparent)' }}>
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs text-glow/70">{entry.activity}</span>
-                    <span className="text-xs text-whisper/40 font-mono">{entry.duration}</span>
+                    <span className="text-xs text-whisper/60 font-mono">{entry.duration}</span>
                   </div>
                   {entry.entry && (
-                    <p className="text-xs text-whisper/40 leading-relaxed">{entry.entry}</p>
+                    <p className="text-xs text-whisper/60 leading-relaxed">{entry.entry}</p>
                   )}
-                  <p className="text-xs text-whisper/15 mt-1 font-mono">
+                  <p className="text-xs text-whisper/40 mt-1 font-mono">
                     {new Date(entry.timestamp).toLocaleDateString('zh-CN', {
                       month: 'short',
                       day: 'numeric',
@@ -282,7 +282,7 @@ export default function App() {
                 <h2 className="text-2xl sm:text-3xl font-extralight text-whisper/80 mb-3 tracking-widest">
                   此刻，想做什么？
                 </h2>
-                <p className="text-sm text-whisper/35 font-light tracking-wide">
+                <p className="text-sm text-whisper/55 font-light tracking-wide">
                   选一个不能被 AI 加速的事
                 </p>
               </div>

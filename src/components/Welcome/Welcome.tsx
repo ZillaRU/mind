@@ -36,7 +36,7 @@ export default function Welcome({ onEnter }: Props) {
 
       {/* Bottom hint */}
       <div className="absolute bottom-8 text-center">
-        <p className="text-xs text-whisper/35 font-mono leading-relaxed">
+        <p className="text-xs text-whisper/55 font-mono leading-relaxed">
           {theme.copy.bottomHint}
         </p>
       </div>

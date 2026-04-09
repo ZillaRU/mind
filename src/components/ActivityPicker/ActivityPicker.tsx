@@ -95,7 +95,7 @@ export default function ActivityPicker({
                     setMenuOpenId(menuOpenId === activity.id ? null : activity.id);
                   }}
                   className="w-7 h-7 rounded-full flex items-center justify-center
-                    text-whisper/40 hover:text-whisper/80 hover:bg-surface/60
+                    text-whisper/60 hover:text-whisper/80 hover:bg-surface/60
                     transition-all duration-300 text-xs"
                 >
                   ···
@@ -167,10 +167,10 @@ export default function ActivityPicker({
             animationDelay: `${filtered.length * 50}ms`,
           }}
         >
-          <span className="text-3xl text-whisper/30 group-hover:text-aurora/60 transition-all duration-500 mb-3 group-hover:scale-110">
+          <span className="text-3xl text-whisper/50 group-hover:text-aurora/60 transition-all duration-500 mb-3 group-hover:scale-110">
             +
           </span>
-          <span className="text-sm text-whisper/40 group-hover:text-whisper/70 transition-colors duration-500 font-light">
+          <span className="text-sm text-whisper/60 group-hover:text-whisper/70 transition-colors duration-500 font-light">
             添加你的活动
           </span>
         </button>

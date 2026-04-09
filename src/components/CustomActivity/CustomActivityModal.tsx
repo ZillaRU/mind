@@ -113,14 +113,14 @@ export default function CustomActivityModal({ activity, onSave, onClose }: Props
               <h2 className="text-lg sm:text-xl font-extralight text-whisper/90 tracking-wide">
                 {isEditing ? '编辑活动' : '添加活动'}
               </h2>
-              <p className="text-xs text-whisper/30 mt-1 font-light">
+              <p className="text-xs text-whisper/50 mt-1 font-light">
                 {isEditing ? '修改你的慢时光' : '创造一段属于你的慢时光'}
               </p>
             </div>
             <button
               onClick={onClose}
               className="w-8 h-8 rounded-full flex items-center justify-center
-                text-whisper/40 hover:text-whisper/80 transition-all duration-300 text-sm"
+                text-whisper/60 hover:text-whisper/80 transition-all duration-300 text-sm"
               style={{
                 background: 'color-mix(in srgb, var(--color-surface) 40%, transparent)',
                 border: '1px solid color-mix(in srgb, var(--color-muted) 15%, transparent)',
@@ -159,8 +159,8 @@ export default function CustomActivityModal({ activity, onSave, onClose }: Props
                 <span className="text-xs font-mono" style={{ color: 'color-mix(in srgb, var(--color-aurora) 45%, transparent)' }}>
                   {showCustomDuration ? (customDuration || '自定义') : duration}
                 </span>
-                <span className="text-whisper/15">·</span>
-                <span className="text-xs text-whisper/30">
+                <span className="text-whisper/40">·</span>
+                <span className="text-xs text-whisper/50">
                   {categories.find(c => c.value === category)?.label}
                 </span>
               </div>
@@ -169,7 +169,7 @@ export default function CustomActivityModal({ activity, onSave, onClose }: Props
 
           {/* Icon picker */}
           <div className="mb-5 sm:mb-6">
-            <label className="block text-xs text-whisper/40 mb-2.5 tracking-wide font-light">选择图标</label>
+            <label className="block text-xs text-whisper/60 mb-2.5 tracking-wide font-light">选择图标</label>
             <button
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
               className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl transition-all duration-500"
@@ -218,7 +218,7 @@ export default function CustomActivityModal({ activity, onSave, onClose }: Props
 
           {/* Name */}
           <div className="mb-4 sm:mb-5">
-            <label className="block text-xs text-whisper/40 mb-2 tracking-wide font-light">活动名称</label>
+            <label className="block text-xs text-whisper/60 mb-2 tracking-wide font-light">活动名称</label>
             <input
               ref={nameRef}
               type="text"
@@ -232,7 +232,7 @@ export default function CustomActivityModal({ activity, onSave, onClose }: Props
 
           {/* Description */}
           <div className="mb-4 sm:mb-5">
-            <label className="block text-xs text-whisper/40 mb-2 tracking-wide font-light">简短描述</label>
+            <label className="block text-xs text-whisper/60 mb-2 tracking-wide font-light">简短描述</label>
             <input
               type="text"
               value={description}
@@ -245,7 +245,7 @@ export default function CustomActivityModal({ activity, onSave, onClose }: Props
 
           {/* Guide */}
           <div className="mb-5 sm:mb-6">
-            <label className="block text-xs text-whisper/40 mb-2 tracking-wide font-light">引导语</label>
+            <label className="block text-xs text-whisper/60 mb-2 tracking-wide font-light">引导语</label>
             <textarea
               value={guide}
               onChange={e => setGuide(e.target.value)}
@@ -257,7 +257,7 @@ export default function CustomActivityModal({ activity, onSave, onClose }: Props
 
           {/* Duration presets */}
           <div className="mb-5 sm:mb-6">
-            <label className="block text-xs text-whisper/40 mb-2.5 tracking-wide font-light">建议时长</label>
+            <label className="block text-xs text-whisper/60 mb-2.5 tracking-wide font-light">建议时长</label>
             <div className="flex flex-wrap gap-2">
               {durationPresets.map(d => (
                 <button
@@ -310,7 +310,7 @@ export default function CustomActivityModal({ activity, onSave, onClose }: Props
 
           {/* Category pills */}
           <div className="mb-7 sm:mb-8">
-            <label className="block text-xs text-whisper/40 mb-2.5 tracking-wide font-light">分类</label>
+            <label className="block text-xs text-whisper/60 mb-2.5 tracking-wide font-light">分类</label>
             <div className="flex gap-2.5">
               {categories.map(c => (
                 <button

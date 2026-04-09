@@ -94,7 +94,7 @@ function MusicCard({ item, onNext }: { item: Inspiration; onNext: () => void }) 
         </p>
         <p className="text-sm text-whisper/70 leading-relaxed">{item.description}</p>
       </div>
-      <p className="text-xs text-whisper/40 font-mono mb-6 text-center">{item.listenHint}</p>
+      <p className="text-xs text-whisper/60 font-mono mb-6 text-center">{item.listenHint}</p>
       <div className="flex justify-center">
         <button onClick={onNext} className="btn-ghost">
           换一首
