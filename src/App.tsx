@@ -170,20 +170,20 @@ export default function App() {
       {/* Top bar */}
       {phase !== 'welcome' && (
         <div className="absolute top-0 left-0 right-0 z-20 animate-fade-in">
-          <div className="flex items-center justify-between px-4 sm:px-5 py-3 sm:py-4">
-            <div className="flex items-center gap-3 sm:gap-5">
-              <button onClick={handleBack} className="btn-text text-sm sm:text-base">
-                ← 返回
+          <div className="flex items-center justify-between px-3 sm:px-5 py-2.5 sm:py-4">
+            <div className="flex items-center gap-2 sm:gap-4">
+              <button onClick={handleBack} className="btn-text text-base sm:text-sm px-2 py-1">
+                ←
               </button>
-              <h1 className="text-sm font-light text-whisper/70 tracking-[0.2em]">
+              <h1 className="text-xs sm:text-sm font-light text-whisper/60 tracking-[0.15em] sm:tracking-[0.2em] hidden sm:block">
                 慢 <span className="text-glow/60 font-mono text-xs">mind</span>
               </h1>
             </div>
 
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-3">
               <button
                 onClick={() => setShowCheckInStats(!showCheckInStats)}
-                className="btn-text text-sm sm:text-base"
+                className="btn-text text-base sm:text-sm px-2 py-1.5 rounded-lg"
                 style={showCheckInStats ? { opacity: 1, color: 'var(--color-glow)' } : {}}
                 title="打卡统计"
               >
@@ -191,20 +191,20 @@ export default function App() {
               </button>
               <button
                 onClick={() => setShowSettings(!showSettings)}
-                className="btn-text text-sm sm:text-base"
+                className="btn-text text-base sm:text-sm px-2 py-1.5 rounded-lg"
                 style={showSettings ? { opacity: 1, color: 'var(--color-glow)' } : {}}
               >
                 ⚙️
               </button>
               <button
                 onClick={() => setShowInspiration(true)}
-                className="btn-text text-sm sm:text-base"
+                className="btn-text text-base sm:text-sm px-2 py-1.5 rounded-lg"
               >
                 ✨
               </button>
               <button
                 onClick={() => setShowJournal(!showJournal)}
-                className="btn-text text-sm sm:text-base"
+                className="btn-text text-base sm:text-sm px-2 py-1.5 rounded-lg"
                 style={showJournal ? { opacity: 1, color: 'var(--color-glow)' } : {}}
               >
                 📝
@@ -248,6 +248,7 @@ export default function App() {
                 padding: '1rem 1.25rem',
                 boxShadow: '0 8px 32px -8px rgba(0,0,0,0.4)',
                 minWidth: '280px',
+                maxWidth: '90vw',
               }}
             >
               <CheckInStats journal={journal} />
