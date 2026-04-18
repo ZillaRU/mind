@@ -11,37 +11,30 @@ function getRandomInspiration(exclude?: Inspiration): Inspiration {
 }
 
 function ArtCard({ item, onNext }: { item: Inspiration; onNext: () => void }) {
-  const [imgError, setImgError] = useState(false);
-
   return (
     <div className="w-full max-w-lg animate-fade-in">
-      <div className="relative rounded-2xl overflow-hidden mb-6 aspect-[4/3]"
+      <div 
+        className="relative rounded-2xl overflow-hidden mb-6 aspect-[4/3] flex items-center justify-center"
         style={{
-          background: 'color-mix(in srgb, var(--color-surface) 40%, transparent)',
-          border: '1px solid color-mix(in srgb, var(--color-muted) 15%, transparent)',
-          boxShadow: '0 8px 32px -8px rgba(0,0,0,0.4)',
+          background: 'linear-gradient(135deg, color-mix(in srgb, var(--color-aurora) 15%, transparent) 0%, color-mix(in srgb, var(--color-midnight) 90%, transparent) 100%)',
+          border: '1px solid color-mix(in srgb, var(--color-aurora) 20%, transparent)',
+          boxShadow: '0 8px 32px -8px rgba(0,0,0,0.4), inset 0 0 60px color-mix(in srgb, var(--color-aurora) 8%, transparent)',
         }}
       >
-        {!imgError ? (
-          <img
-            src={item.imageUrl}
-            alt={item.title}
-            className="w-full h-full object-cover"
-            loading="lazy"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <span className="text-6xl opacity-40">🖼️</span>
-          </div>
-        )}
+        <span className="text-8xl opacity-60" style={{ filter: 'drop-shadow(0 0 30px color-mix(in srgb, var(--color-aurora) 40%, transparent))' }}>
+          {item.emoji || '🎨'}
+        </span>
+        
         <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-transparent to-transparent" />
+        
         <div className="absolute bottom-0 left-0 right-0 p-5">
           <h3 className="text-xl font-normal text-white/95 mb-1">{item.title}</h3>
           <p className="text-sm text-white/70">{item.author} · {item.era}</p>
         </div>
       </div>
+      
       <p className="text-sm text-whisper/70 leading-relaxed mb-6">{item.description}</p>
+      
       <button onClick={onNext} className="btn-ghost">
         换一幅
       </button>
@@ -52,7 +45,8 @@ function ArtCard({ item, onNext }: { item: Inspiration; onNext: () => void }) {
 function PoetryCard({ item, onNext }: { item: Inspiration; onNext: () => void }) {
   return (
     <div className="w-full max-w-lg animate-fade-in">
-      <div className="mb-6 p-6 rounded-2xl"
+      <div 
+        className="mb-6 p-6 rounded-2xl"
         style={{
           background: 'color-mix(in srgb, var(--color-surface) 40%, transparent)',
           border: '1px solid color-mix(in srgb, var(--color-muted) 15%, transparent)',
@@ -63,13 +57,16 @@ function PoetryCard({ item, onNext }: { item: Inspiration; onNext: () => void })
         <p className="text-xs font-mono mb-5" style={{ color: 'color-mix(in srgb, var(--color-aurora) 50%, transparent)' }}>
           {item.author} · {item.era}
         </p>
-        <div className="text-base text-whisper/80 leading-loose whitespace-pre-line font-light"
+        <div 
+          className="text-base text-whisper/80 leading-loose whitespace-pre-line font-light"
           style={{ textShadow: '0 0 1px var(--color-whisper)' }}
         >
           {item.text}
         </div>
       </div>
+      
       <p className="text-sm text-whisper/60 leading-relaxed mb-6">{item.description}</p>
+      
       <button onClick={onNext} className="btn-ghost">
         换一首
       </button>
@@ -80,7 +77,8 @@ function PoetryCard({ item, onNext }: { item: Inspiration; onNext: () => void })
 function MusicCard({ item, onNext }: { item: Inspiration; onNext: () => void }) {
   return (
     <div className="w-full max-w-lg animate-fade-in">
-      <div className="mb-6 p-6 rounded-2xl text-center"
+      <div 
+        className="mb-6 p-6 rounded-2xl text-center"
         style={{
           background: 'color-mix(in srgb, var(--color-surface) 40%, transparent)',
           border: '1px solid color-mix(in srgb, var(--color-muted) 15%, transparent)',
@@ -94,7 +92,9 @@ function MusicCard({ item, onNext }: { item: Inspiration; onNext: () => void }) 
         </p>
         <p className="text-sm text-whisper/70 leading-relaxed">{item.description}</p>
       </div>
+      
       <p className="text-xs text-whisper/60 font-mono mb-6 text-center">{item.listenHint}</p>
+      
       <div className="flex justify-center">
         <button onClick={onNext} className="btn-ghost">
           换一首
@@ -107,7 +107,8 @@ function MusicCard({ item, onNext }: { item: Inspiration; onNext: () => void }) 
 function ProseCard({ item, onNext }: { item: Inspiration; onNext: () => void }) {
   return (
     <div className="w-full max-w-lg animate-fade-in">
-      <div className="mb-6 p-6 rounded-2xl"
+      <div 
+        className="mb-6 p-6 rounded-2xl"
         style={{
           background: 'color-mix(in srgb, var(--color-surface) 40%, transparent)',
           border: '1px solid color-mix(in srgb, var(--color-muted) 15%, transparent)',
@@ -118,13 +119,16 @@ function ProseCard({ item, onNext }: { item: Inspiration; onNext: () => void }) 
         <p className="text-xs font-mono mb-5" style={{ color: 'color-mix(in srgb, var(--color-aurora) 50%, transparent)' }}>
           {item.author} · {item.era}
         </p>
-        <div className="text-sm text-whisper/80 leading-loose whitespace-pre-line font-light"
+        <div 
+          className="text-sm text-whisper/80 leading-loose whitespace-pre-line font-light"
           style={{ textShadow: '0 0 1px var(--color-whisper)' }}
         >
           {item.text}
         </div>
       </div>
+      
       <p className="text-sm text-whisper/60 leading-relaxed mb-6">{item.description}</p>
+      
       <button onClick={onNext} className="btn-ghost">
         换一篇
       </button>
@@ -146,22 +150,16 @@ export default function InspirationCard({ onClose }: Props) {
       className="fixed inset-0 z-50 flex items-center justify-center animate-fade-in"
       onClick={onClose}
     >
-      <div className="absolute inset-0"
-        style={{ background: 'color-mix(in srgb, var(--color-midnight) 88%, transparent)', backdropFilter: 'blur(12px)' }}
-      />
+      <div className="absolute inset-0" style={{ background: 'color-mix(in srgb, var(--color-midnight) 88%, transparent)', backdropFilter: 'blur(12px)' }} />
 
       <div
         className="relative w-full max-w-xl mx-4 px-4"
         onClick={e => e.stopPropagation()}
       >
-        {/* Close button */}
         <div className="flex justify-end mb-4">
-          <button onClick={onClose} className="btn-text text-base">
-            ✕
-          </button>
+          <button onClick={onClose} className="btn-text text-base">✕</button>
         </div>
 
-        {/* Content */}
         <div key={key}>
           {current.type === 'art' && <ArtCard item={current} onNext={handleNext} />}
           {current.type === 'poetry' && <PoetryCard item={current} onNext={handleNext} />}
@@ -169,7 +167,6 @@ export default function InspirationCard({ onClose }: Props) {
           {current.type === 'prose' && <ProseCard item={current} onNext={handleNext} />}
         </div>
 
-        {/* Bottom hint */}
         <p className="text-center text-xs text-whisper/35 mt-8 font-mono">
           所有内容均为公共领域，无版权风险
         </p>

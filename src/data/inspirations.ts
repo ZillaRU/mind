@@ -2,7 +2,7 @@
 // All content is either public domain or freely usable
 // Music: composed before 1928
 // Poetry: classical Chinese poetry + pre-1928 Western poetry
-// Art: artists deceased >70 years, images from Wikimedia Commons
+// Art: artists deceased >70 years
 
 export type InspirationType = 'music' | 'poetry' | 'art' | 'prose';
 
@@ -13,6 +13,7 @@ export interface Inspiration {
   era?: string;
   description: string;
   imageUrl?: string;
+  emoji?: string;
   text?: string;
   listenHint?: string;
 }
@@ -135,7 +136,7 @@ export const inspirations: Inspiration[] = [
   },
   {
     type: 'poetry',
-    title: '人闲桂花落',
+    title: '鸟鸣涧',
     author: '王维',
     era: '唐',
     text: '人闲桂花落，夜静春山空。\n月出惊山鸟，时鸣春涧中。',
@@ -151,143 +152,45 @@ export const inspirations: Inspiration[] = [
   },
   {
     type: 'poetry',
-    title: 'The Road Not Taken',
-    author: 'Robert Frost',
-    era: '1916',
-    text: 'Two roads diverged in a wood, and I—\nI took the one less traveled by,\nAnd that has made all the difference.',
-    description: '两条路，他选了少有人走的那条。不是因为那条更好，而是因为那是他的。',
-  },
-  {
-    type: 'poetry',
-    title: 'If—（节选）',
-    author: 'Rudyard Kipling',
-    era: '1910',
-    text: 'If you can fill the unforgiving minute\nWith sixty seconds\' worth of distance run,\nYours is the Earth and everything that\'s in it,\nAnd—which is more—you\'ll be a Man, my son!',
-    description: '吉卜林写给儿子的诗。不是教你成功，而是教你如何在任何境遇中保持自己。',
-  },
-  {
-    type: 'poetry',
-    title: 'I Wandered Lonely as a Cloud',
-    author: 'William Wordsworth',
-    era: '1807',
-    text: 'I wandered lonely as a cloud\nThat floats on high o\'er vales and hills,\nWhen all at once I saw a crowd,\nA host, of golden daffodils.',
-    description: '华兹华斯独自散步时看到了一片水仙花。孤独不是没有人，是还没有注意到花。',
-  },
-  {
-    type: 'poetry',
-    title: '相见欢',
-    author: '李煜',
-    era: '五代',
-    text: '无言独上西楼，月如钩。\n寂寞梧桐深院锁清秋。\n\n剪不断，理还乱，是离愁。\n别是一般滋味在心头。',
-    description: '亡国之君写的不是亡国，是每个人心里都有的那种说不清的愁。',
-  },
-
-  // === Prose (public domain, short excerpts that fit one screen) ===
-  {
-    type: 'prose',
-    title: '瓦尔登湖（节选）',
-    author: 'Henry David Thoreau',
-    era: '1854',
-    text: '我步入丛林，因为我希望生活得有意义。我希望活得深刻，汲取生命中所有的精华。把非生命的一切都击溃，以免让我在生命终结时，发现自己从来没有活过。',
-    description: '梭罗在瓦尔登湖畔独居两年。这段话是他对"为什么离开"的回答。',
-  },
-  {
-    type: 'prose',
-    title: '小王子（节选）',
-    author: 'Antoine de Saint-Exupéry',
-    era: '1943',
-    text: '"人们坐进快车里，却不知道自己要寻找什么。于是他们便盲目地忙碌，来回打转。"小王子说。\n\n"这不奇怪，"我说，"一个人在花园里种了五千朵玫瑰，却找不到自己想要的东西。"\n\n"可是，他们要找的东西，也许就在一朵玫瑰或者一点水里……"',
-    description: '小王子不明白大人为什么总是在赶路。也许我们也不明白。',
-  },
-  {
-    type: 'prose',
-    title: '浮生六记·闲情记趣（节选）',
-    author: '沈复',
-    era: '清',
-    text: '见藐小之物必细察其纹理，故时有物外之趣。\n\n夏蚊成雷，私拟作群鹤舞于空中，心之所向，则或千或百，果然鹤也。昂首观之，项为之强。又留蚊于素帐中，徐喷以烟，使之冲烟而飞鸣，作青云白鹤观，果如鹤唳云端，为之怡然称快。',
-    description: '沈复把蚊子想象成白鹤，把烟想象成云。快乐不需要很贵的东西，只需要一双愿意想象的眼睛。',
-  },
-  {
-    type: 'prose',
-    title: '湖心亭看雪（节选）',
-    author: '张岱',
-    era: '明',
-    text: '大雪三日，湖中人鸟声俱绝。\n\n是日更定矣，余拏一小舟，拥毳衣炉火，独往湖心亭看雪。雾凇沆砀，天与云与山与水，上下一白。湖上影子，惟长堤一痕、湖心亭一点、与余舟一芥、舟中人两三粒而已。',
-    description: '张岱在冬夜独自划船去看雪。整个世界只剩下一痕、一点、一芥、两三粒。孤独到了极致，就是美。',
-  },
-  {
-    type: 'prose',
-    title: '老人与海（节选）',
-    author: 'Ernest Hemingway',
-    era: '1952',
-    text: '他是个独自在湾流中一条小船上钓鱼的老人，至今已去了八十四天，一条鱼也没逮住。\n\n他消瘦而憔悴，脖颈上有些很深的皱纹。腮帮上有些褐斑，那是太阳在热带海面上反射的光线所引起的良性皮肤癌变。',
-    description: '海明威说："一个人可以被毁灭，但不能被打败。"老人什么都没抓到，但他每天都在出海。',
-  },
-  {
-    type: 'prose',
-    title: '枕草子（节选）',
-    author: '清少纳言',
-    era: '约1000年',
-    text: '春天是破晓时分最好。渐渐发白的山顶，有些微亮，泛紫的云彩细细飘浮在那里。\n\n夏天是夜里最好。有月亮的时候，自不必说了。就是暗夜里，许多萤火虫到处飞着，或只有一两个发出微光点点，也是很有趣味的。',
-    description: '清少纳言写了一千年前她觉得美好的时刻。一千年后读起来，还是觉得美好。',
-  },
-  {
-    type: 'prose',
-    title: '人间词话（节选）',
-    author: '王国维',
-    era: '1908',
-    text: '古今之成大事业、大学问者，必经过三种之境界：\n\n"昨夜西风凋碧树。独上高楼，望尽天涯路。"此第一境也。\n"衣带渐宽终不悔，为伊消得人憔悴。"此第二境也。\n"众里寻他千百度。蓦然回首，那人却在，灯火阑珊处。"此第三境也。',
-    description: '王国维用三句词概括了所有伟大的过程：迷茫、坚持、然后突然明白了。',
-  },
-  {
-    type: 'prose',
-    title: '道德经（节选）',
-    author: '老子',
-    era: '约公元前6世纪',
-    text: '上善若水。水善利万物而不争，处众人之所恶，故几于道。\n\n居善地，心善渊，与善仁，言善信，政善治，事善能，动善时。夫唯不争，故无尤。',
-    description: '老子说最接近"道"的东西是水。水不争，但水无处不在。',
-  },
-  {
-    type: 'prose',
-    title: '牧羊少年奇幻之旅（节选）',
-    author: 'Paulo Coelho',
-    era: '1988',
-    text: '"当你真心渴望某样东西时，整个宇宙都会联合起来帮助你完成。"\n\n男孩看着沙漠。沙漠沉默着，但沙漠知道他什么时候来，什么时候走。沙漠从不着急。',
-    description: '一个牧羊少年去寻找宝藏，最后发现宝藏就在他出发的地方。',
-  },
-  {
-    type: 'prose',
-    title: '东坡志林（节选）',
-    author: '苏轼',
+    title: '如梦令',
+    author: '李清照',
     era: '宋',
-    text: '临皋亭下不数十步，便是大江，其半是峨眉雪水。吾饮食沐浴皆取焉，何必归乡哉！\n\n江山风月，本无常主，闲者便是主人。',
-    description: '苏轼被贬黄州，没有房子没有钱，但他发现江山风月没有主人，谁闲下来，谁就是主人。',
+    text: '常记溪亭日暮，沉醉不知归路。\n兴尽晚回舟，误入藕花深处。\n争渡，争渡，惊起一滩鸥鹭。',
+    description: '李清照喝醉了，把船划进了荷花丛里。那种尽兴，很久没有过了吧。',
   },
   {
-    type: 'prose',
-    title: '月亮与六便士（节选）',
-    author: 'W. Somerset Maugham',
-    era: '1919',
-    text: '我总觉得大多数人这样度过一生好像欠缺点什么。我承认这种生活的社会价值，也看到了它的井然有序的幸福。但我的血液里却有一种强烈的渴望，渴望一种更狂放不羁的旅途。',
-    description: '毛姆借用了高更的故事：一个证券经纪人突然抛弃一切去画画。满地都是六便士，他却抬头看见了月亮。',
+    type: 'poetry',
+    title: '竹里馆',
+    author: '王维',
+    era: '唐',
+    text: '独坐幽篁里，弹琴复长啸。\n深林人不知，明月来相照。',
+    description: '一个人在竹林里弹琴，没人听。但月亮会听。',
   },
   {
-    type: 'prose',
-    title: '世说新语（节选）',
-    author: '刘义庆',
-    era: '南朝宋',
-    text: '王子猷居山阴，夜大雪，眠觉，开室，命酌酒。四望皎然，因起彷徨，咏左思《招隐诗》。忽忆戴安道，时戴在剡，即便夜乘小船就之。经宿方至，造门不前而返。\n\n人问其故，王曰："吾本乘兴而行，兴尽而返，何必见戴？"',
-    description: '王徽之半夜下雪，突然想去见朋友，划了一夜船到了门口，又回去了。为什么？因为兴致到了就出发，兴致尽了就回来。不需要理由。',
+    type: 'poetry',
+    title: '登幽州台歌',
+    author: '陈子昂',
+    era: '唐',
+    text: '前不见古人，后不见来者。\n念天地之悠悠，独怆然而涕下。',
+    description: '站在高台上，往前看往后看都是空白。有时候孤独不是因为没人，是因为天地太大了。',
+  },
+  {
+    type: 'poetry',
+    title: '临江仙',
+    author: '晏几道',
+    era: '宋',
+    text: '梦后楼台高锁，酒醒帘幕低垂。\n去年春恨却来时。\n落花人独立，微雨燕双飞。',
+    description: '落花时节，一个人站着。雨很小，燕子成双。孤独有时候也是一种美。',
   },
 
-  // === Art (public domain, Wikimedia Commons) ===
+  // === Art (public domain - no external images, use gradient + emoji) ===
   {
     type: 'art',
     title: '星月夜',
     author: 'Vincent van Gogh',
     era: '1889',
     description: '梵高在精神病院里画的夜空。漩涡般的星空下有一个安静的村庄。他看到的夜空，比任何人都热烈。',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/600px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
+    emoji: '🌌',
   },
   {
     type: 'art',
@@ -295,7 +198,7 @@ export const inspirations: Inspiration[] = [
     author: 'Claude Monet',
     era: '1906',
     description: '莫奈晚年几乎只画睡莲。他不是在画花，是在画光落在水面上的样子。同一片池塘，他画了三百多次。',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Art_Institute_of_Chicago.jpg/600px-Claude_Monet_-_Water_Lilies_-_1906%2C_Art_Institute_of_Chicago.jpg',
+    emoji: '🪷',
   },
   {
     type: 'art',
@@ -303,7 +206,7 @@ export const inspirations: Inspiration[] = [
     author: '葛饰北斋',
     era: '1831',
     description: '北斋画这幅画时已经七十多岁了。巨浪要吞没一切，但远处的富士山纹丝不动。大浪之下，有恒常。',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/600px-Tsunami_by_hokusai_19th_century.jpg',
+    emoji: '🌊',
   },
   {
     type: 'art',
@@ -311,7 +214,7 @@ export const inspirations: Inspiration[] = [
     author: 'Vincent van Gogh',
     era: '1888',
     description: '梵高用最浓烈的黄色画向日葵。它们在花瓶里，有的盛开，有的枯萎。每一朵都是生命的某个瞬间。',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vincent_Willem_van_Gogh_127.jpg/600px-Vincent_Willem_van_Gogh_127.jpg',
+    emoji: '🌻',
   },
   {
     type: 'art',
@@ -319,7 +222,7 @@ export const inspirations: Inspiration[] = [
     author: 'Claude Monet',
     era: '1872',
     description: '这幅画给了"印象派"这个名字。雾气中的港口，太阳只是一个橙色的圆。莫奈画的不是风景，是印象——你第一眼看到的东西。',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Monet_-_Impression%2C_Sunrise.jpg/600px-Monet_-_Impression%2C_Sunrise.jpg',
+    emoji: '🌅',
   },
   {
     type: 'art',
@@ -327,15 +230,15 @@ export const inspirations: Inspiration[] = [
     author: '葛饰北斋',
     era: '1830',
     description: '也叫"赤富士"。夏天的清晨，富士山被朝霞染成红色。北斋画了三十六次富士山，每一次都不一样。重复不是无聊，是深入。',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Fine_wind%2C_clear_morning.jpg/600px-Fine_wind%2C_clear_morning.jpg',
+    emoji: '🗻',
   },
   {
     type: 'art',
     title: '呐喊',
     author: 'Edvard Munch',
     era: '1893',
-    description: '蒙克说："我和两个朋友一起散步，太阳下山了——突然间，天空变得血红。我停下脚步，靠在栏杆上，感到一声无尽的尖叫穿过自然。"焦虑的尽头，是承认它。',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg/600px-Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg',
+    description: '蒙克说："我和两个朋友一起散步，太阳下山了——突然间，天空变得血红。"焦虑的尽头，是承认它。',
+    emoji: '🌫️',
   },
   {
     type: 'art',
@@ -343,6 +246,40 @@ export const inspirations: Inspiration[] = [
     author: 'Georges Seurat',
     era: '1886',
     description: '修拉用了两年的点彩画法完成这幅画。几百万个色点，远处看才是一幅画。有时候，退后一步才能看清全貌。',
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/A_Sunday_on_La_Grande_Jatte.jpg/600px-A_Sunday_on_La_Grande_Jatte.jpg',
+    emoji: '🎨',
+  },
+
+  // === Prose (public domain) ===
+  {
+    type: 'prose',
+    title: '瓦尔登湖（节选）',
+    author: 'Henry David Thoreau',
+    era: '1854',
+    text: '我步入丛林，因为我希望生活得有意义，我希望活得深刻，吸取生命中所有的精华，把非生命的一切都击溃。',
+    description: '梭罗在瓦尔登湖边住了两年。他说，简单的生活才能触及本质。',
+  },
+  {
+    type: 'prose',
+    title: '道德经（节选）',
+    author: '老子',
+    era: '春秋',
+    text: '致虚极，守静笃。\n万物并作，吾以观复。\n夫物芸芸，各复归其根。\n归根曰静，是谓复命。',
+    description: '静下来，才能看见事物的本来面目。',
+  },
+  {
+    type: 'prose',
+    title: '逍遥游（节选）',
+    author: '庄子',
+    era: '战国',
+    text: '北冥有鱼，其名为名为鲲。鲲之大，不知其几千里也；化而为鸟，其名为鹏。',
+    description: '庄子眼里的世界很大。大到你不需要担心迷路，因为到处都是路。',
+  },
+  {
+    type: 'prose',
+    title: '心经',
+    author: '玄奘译',
+    era: '唐',
+    text: '观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。',
+    description: '空不是虚无，是不执着。放下了，心就自由了。',
   },
 ];
