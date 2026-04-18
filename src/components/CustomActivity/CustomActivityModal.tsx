@@ -39,7 +39,7 @@ export default function CustomActivityModal({ activity, onSave, onClose }: Props
   const [guide, setGuide] = useState(activity?.guide || '');
   const [duration, setDuration] = useState(activity?.duration || '15 分钟');
   const [category, setCategory] = useState<Activity['category']>(activity?.category || 'hands');
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  
   const [customDuration, setCustomDuration] = useState('');
   const [showCustomDuration, setShowCustomDuration] = useState(false);
   const [activeGroup, setActiveGroup] = useState<keyof typeof emojiGroups>('nature');
