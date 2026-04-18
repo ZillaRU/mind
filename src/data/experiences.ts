@@ -499,3 +499,171 @@ export const activityExperiences: Record<string, ActivityExperience> = {
 export function getExperience(activityId: string): ActivityExperience | null {
   return activityExperiences[activityId] || null;
 }
+
+// ===== 新活动的 prompts =====
+
+// ===== 看星星 =====
+const stargazingPrompts: Prompt[] = [
+  { lines: ['找到最亮的那颗星～', '它可能是一颗行星', '也可能是一颗卫星', '或者只是飞机'], emoji: '⭐' },
+  { lines: ['闭上眼睛，数三秒', '睁开，找一个新的点', '每一颗星星都在那里', '等了你很久'], emoji: '🌟' },
+  { lines: ['有没有看到会动的？', '那是卫星', '或者国际空间站', '上面有人正在看你'], emoji: '🛰️' },
+  { lines: ['如果云来了', '就等一下', '云会走的', '星星还在那里'], emoji: '☁️' },
+  { lines: ['你现在看到的星光', '是很多年前发出的', '那颗星可能已经不在了', '但它的光还在'], emoji: '✨' },
+  { lines: ['宇宙在膨胀', '但你感觉不到', '你只是站在这里', '看星星'], emoji: '🌌' },
+  { lines: ['不需要认识每一颗星', '知道它们在那里就够了', '就像有些人', '不需要常见面'], emoji: '👁️' },
+];
+
+// ===== 听音乐 =====
+const musicPrompts: Prompt[] = [
+  { lines: ['选一首歌', '不要看歌词', '只是听'], emoji: '🎧' },
+  { lines: ['注意鼓点', '它像心跳', '你跟上它', '或者它跟上你'], emoji: '🥁' },
+  { lines: ['有没有哪个音符', '让你停了一下', '就停在那里', '让它住一会儿'], emoji: '🎵' },
+  { lines: ['如果音乐有颜色', '这首是什么颜色', '不是红橙黄绿那种', '是心里的那种'], emoji: '🎨' },
+  { lines: ['音乐停了', '不要急着切', '让余音还在房间里', '再待一会儿'], emoji: '🔇' },
+];
+
+// ===== 泡澡 =====
+const bathPrompts: Prompt[] = [
+  { lines: ['慢慢坐进去', '让热水包住你', '从脚开始', '一点一点'], emoji: '🛁' },
+  { lines: ['什么都不想', '或者想什么都行', '热水会帮你', '把思绪泡软'], emoji: '💭' },
+  { lines: ['听水的声音', '动一动的时候', '哗啦哗啦的', '很安静'], emoji: '🌊' },
+  { lines: ['如果累了', '就把头也靠进去', '听不到外面的声音', '只有水和你'], emoji: '🫧' },
+  { lines: ['泡完了不要急', '让身体慢慢适应', '冷空气进来的时候', '会有一点点清醒'], emoji: '❄️' },
+];
+
+// ===== 看日出 =====
+const sunrisePrompts: Prompt[] = [
+  { lines: ['天在亮了', '你看到了吗', '不是太阳', '是天空在变'], emoji: '🌅' },
+  { lines: ['它很慢', '但一直在', '不会停的', '总会到达'], emoji: '⏰' },
+  { lines: ['云会被染成橙色', '然后粉色', '然后金色', '每一天都不一样'], emoji: '🌈' },
+  { lines: ['你是第几个看日出的人', '从古到今', '有多少人', '站在这里'], emoji: '👥' },
+  { lines: ['太阳升起来了', '新的一天', '从这一刻开始'], emoji: '☀️' },
+];
+
+// ===== 听雨 =====
+const rainPrompts: Prompt[] = [
+  { lines: ['听～', '雨打在什么地方', '窗户？屋顶？树叶？', '每个地方声音不一样'], emoji: '👂' },
+  { lines: ['有没有规律', '其实没有', '雨声就是', '没有规律才安静'], emoji: '🌧️' },
+  { lines: ['如果雨变大了', '就离窗户近一点', '看雨滴滑下去', '每一滴路径都不一样'], emoji: '💧' },
+  { lines: ['你上次听雨是什么时候', '有没有很久了', '雨一直在下', '只是我们太忙'], emoji: '⏳' },
+];
+
+// ===== 看火 =====
+const firePrompts: Prompt[] = [
+  { lines: ['看火焰的顶端', '蓝色的那里', '那是火最热的地方', '但看起来最冷静'], emoji: '🔥' },
+  { lines: ['火焰会跳', '不是随机的', '是风在说话', '很小很小的风'], emoji: '🍃' },
+  { lines: ['有没有听到', '噼啪声', '那是木头的记忆', '在燃烧之前的样子'], emoji: '🌲' },
+  { lines: ['火会变小', '变弱', '但不会突然消失', '慢慢来'], emoji: '⏳' },
+  { lines: ['如果火灭了', '不要急着点火', '让黑暗待一会儿', '也是一种完整'], emoji: '🌑' },
+];
+
+// ===== 摄影 =====
+const photoPrompts: Prompt[] = [
+  { lines: ['找光线', '光在哪里', '让它照在你觉得美的地方', '按下快门'], emoji: '📷' },
+  { lines: ['不要想太多', '看到什么拍什么', '回来再看', '也许会有惊喜'], emoji: '✨' },
+  { lines: ['低头看看', '地上有没有影子', '影子也可以拍'], emoji: '👣' },
+  { lines: ['你今天穿什么颜色', '和环境搭吗', '试试看'], emoji: '🎨' },
+  { lines: ['把镜头对着一朵花', '靠近一点', '再近一点', '直到你看不到它是什么花'], emoji: '🌸' },
+];
+
+// ===== 写作 =====
+const writePrompts: Prompt[] = [
+  { lines: ['写一个句子', '不需要是完整的', '不一定要有意义', '只是写'], emoji: '✍️' },
+  { lines: ['如果不知道写什么', '就写"我不知道写什么"', '这也是写作'], emoji: '🤷' },
+  { lines: ['写今天', '不是日记那种', '就是今天', '此时此刻'], emoji: '📅' },
+  { lines: ['写一个人', '不需要写真名', '用代号', '或者只是一个"他"'], emoji: '👤' },
+  { lines: ['写完了？', '读一遍', '改一个字', '或者不改'], emoji: '📖' },
+];
+
+// ===== 做手工 =====
+const diyPrompts: Prompt[] = [
+  { lines: ['先看看你的材料', '摸一摸', '感受它们的重量', '然后再开始'], emoji: '🔧' },
+  { lines: ['做坏了也没关系', '手工的意义', '不在于完美', '在于亲手'], emoji: '💪' },
+  { lines: ['慢一点', '不是比赛', '没有时间限制', '慢慢来'], emoji: '🐢' },
+  { lines: ['你做的东西', '全世界只有这一件', '因为是你做的', '不管什么样'], emoji: '🌟' },
+];
+
+// ===== 整理收藏 =====
+const collectionPrompts: Prompt[] = [
+  { lines: ['慢慢翻', '不要急', '每一件东西都有故事', '等你想起来'], emoji: '📦' },
+  { lines: ['这张照片是什么时候', '你还记得吗', '那天你在想什么'], emoji: '📷' },
+  { lines: ['这张票根', '你去了吗', '去了的话', '玩得开心吗'], emoji: '🎫' },
+  { lines: ['有些东西可以扔了', '有些不可以', '你知道的', '相信你的感觉'], emoji: '🗑️' },
+  { lines: ['整理完了', '把它们放好', '不是收起来', '是给它们一个家'], emoji: '🏠' },
+];
+
+// ===== 尝试新菜 =====
+const cookingNewPrompts: Prompt[] = [
+  { lines: ['先读一遍菜谱', '不是要记住', '是知道要做什么'], emoji: '📖' },
+  { lines: ['材料准备好了吗', '切好了吗', '等一下再开始', '准备好了再开始'], emoji: '🥗' },
+  { lines: ['不好吃也没关系', '下次改进', '好不好的', '反正没人知道'], emoji: '😄' },
+  { lines: ['摆盘的时候', '摆好看一点', '虽然要吃掉', '但好看会让它更好吃'], emoji: '🍽️' },
+];
+
+// ===== 发呆 =====
+const daydreamPrompts: Prompt[] = [
+  { lines: ['看窗外', '随便哪里', '不要想', '只是看'], emoji: '🪟' },
+  { lines: ['你的脑子', '有没有停下来', '没有也没关系', '发呆不需要脑子安静'], emoji: '💭' },
+  { lines: ['时间在走', '但你', '就坐在这里', '什么都不做'], emoji: '⏰' },
+  { lines: ['发呆也是', '一种活着', '不是浪费', '是休息'], emoji: '🌸' },
+  { lines: ['差不多了？', '还是继续？', '都可以', '你决定'], emoji: '✨' },
+];
+
+// ===== 骑行 =====
+const cyclingPrompts: Prompt[] = [
+  { lines: ['踩下去', '感受踏板', '一圈又一圈', '世界在后退'], emoji: '🚴' },
+  { lines: ['风迎面吹来', '不要躲', '让它吹过你的脸', '这就是自由'], emoji: '🍃' },
+  { lines: ['不用快', '快不是目的', '只是路过', '让风景流过'], emoji: '🌳' },
+  { lines: ['累了就停', '路边站一会儿', '看看刚才骑过的路'], emoji: '🛤️' },
+];
+
+// ===== 游泳 =====
+const swimPrompts: Prompt[] = [
+  { lines: ['水是凉的', '还是暖的', '感受一下', '然后适应它'], emoji: '🌊' },
+  { lines: ['浮在水面上', '什么都不做', '让水托住你', '你不需要用力'], emoji: '🫧' },
+  { lines: ['听声音', '在水面上下不一样', '在水下听', '像是另一个世界'], emoji: '👂' },
+  { lines: ['游的时候不要想', '只想水', '怎么划', '怎么呼吸'], emoji: '💭' },
+];
+
+// ===== 瑜伽 =====
+const yogaPrompts: Prompt[] = [
+  { lines: ['从呼吸开始', '深深地', '慢慢地', '让呼吸带着你'], emoji: '🌬️' },
+  { lines: ['身体会说话', '哪里紧了', '哪里疼', '那是它的语言'], emoji: '🗣️' },
+  { lines: ['不需要做到位', '做到自己能做的', '明天可能会更好', '也可能不会'], emoji: '🌱' },
+  { lines: ['最后躺下来', '摊尸式', '什么都不做', '让身体记住刚才的一切'], emoji: '🧘' },
+];
+
+// ===== 折纸 =====
+const origamiPrompts: Prompt[] = [
+  { lines: ['把纸对折', '对齐', '压平', '这一步很简单'], emoji: '📄' },
+  { lines: ['跟着折痕', '一步一步', '不需要快', '每一步都稳'], emoji: '✂️' },
+  { lines: ['折错了？', '打开重来', '纸不会碎的', '碎了也没关系'], emoji: '🔄' },
+  { lines: ['折完了', '看看它', '全世界只有这一张', '因为你折的'], emoji: '🌟' },
+];
+
+// ===== 捏陶 =====
+const potteryPrompts: Prompt[] = [
+  { lines: ['感受泥土', '凉凉的', '有点湿', '它们在等你'], emoji: '🏺' },
+  { lines: ['不要急着成型', '先感受', '让它在你手里', '认识你'], emoji: '🤲' },
+  { lines: ['压下去', '拉起来', '泥土会告诉你', '它想变成什么'], emoji: '✨' },
+  { lines: ['做坏了', '重新来过', '泥土可以重塑', '你也可以'], emoji: '🔄' },
+];
+
+// ===== 添加新活动到映射 =====
+activityExperiences.stargazing = { type: 'prompt-cycle', prompts: stargazingPrompts };
+activityExperiences.music = { type: 'prompt-cycle', prompts: musicPrompts };
+activityExperiences.bath = { type: 'prompt-cycle', prompts: bathPrompts };
+activityExperiences.sunrise = { type: 'prompt-cycle', prompts: sunrisePrompts };
+activityExperiences.rain = { type: 'prompt-cycle', prompts: rainPrompts };
+activityExperiences.fire = { type: 'prompt-cycle', prompts: firePrompts };
+activityExperiences.photo = { type: 'prompt-cycle', prompts: photoPrompts };
+activityExperiences.write = { type: 'prompt-cycle', prompts: writePrompts };
+activityExperiences.diy = { type: 'prompt-cycle', prompts: diyPrompts };
+activityExperiences.collection = { type: 'prompt-cycle', prompts: collectionPrompts };
+activityExperiences.cooking_new = { type: 'prompt-cycle', prompts: cookingNewPrompts };
+activityExperiences.dream = { type: 'prompt-cycle', prompts: daydreamPrompts };
+activityExperiences.cycling = { type: 'prompt-cycle', prompts: cyclingPrompts };
+activityExperiences.swim = { type: 'prompt-cycle', prompts: swimPrompts };
+activityExperiences.yoga = { type: 'prompt-cycle', prompts: yogaPrompts };
+activityExperiences.origami = { type: 'prompt-cycle', prompts: origamiPrompts };
+activityExperiences.pottery = { type: 'prompt-cycle', prompts: potteryPrompts };

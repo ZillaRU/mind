@@ -13,13 +13,17 @@ import InspirationCard from './components/Inspiration/InspirationCard';
 import ThemePicker from './components/ThemePicker/ThemePicker';
 import { useAmbientSound } from './hooks/useAmbientSound';
 import { getExperience } from './data/experiences';
+import CheckInStats from './components/CheckIn/CheckInStats';
+import { getMoodTag } from './data/moods';
 
 type Phase = 'welcome' | 'pick' | 'timer' | 'journal';
 
-interface JournalEntry {
+export interface JournalEntry {
   activity: string;
+  activityId: string;
   duration: string;
   entry: string;
+  mood?: string;
   timestamp: number;
 }
 
@@ -61,6 +65,7 @@ export default function App() {
   const [editingActivity, setEditingActivity] = useState<Activity | null>(null);
   const [showInspiration, setShowInspiration] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showCheckInStats, setShowCheckInStats] = useState(false);
   const { play } = useAmbientSound();
 
   const handleEnter = useCallback(() => {
@@ -79,12 +84,14 @@ export default function App() {
     }
   }, [selectedActivity]);
 
-  const handleJournalComplete = useCallback((entry: string) => {
+  const handleJournalComplete = useCallback((entry: string, mood?: string) => {
     if (selectedActivity) {
       const newEntry: JournalEntry = {
         activity: selectedActivity.name,
+        activityId: selectedActivity.id,
         duration: timerDuration,
         entry,
+        mood,
         timestamp: Date.now(),
       };
       const updated = [newEntry, ...journal].slice(0, 100);
@@ -175,6 +182,14 @@ export default function App() {
 
             <div className="flex items-center gap-2 sm:gap-3">
               <button
+                onClick={() => setShowCheckInStats(!showCheckInStats)}
+                className="btn-text text-sm sm:text-base"
+                style={showCheckInStats ? { opacity: 1, color: 'var(--color-glow)' } : {}}
+                title="打卡统计"
+              >
+                📊
+              </button>
+              <button
                 onClick={() => setShowSettings(!showSettings)}
                 className="btn-text text-sm sm:text-base"
                 style={showSettings ? { opacity: 1, color: 'var(--color-glow)' } : {}}
@@ -220,6 +235,24 @@ export default function App() {
               </div>
             </div>
           )}
+
+          {/* Check-in stats panel */}
+          {showCheckInStats && (
+            <div
+              className="absolute top-full right-2 sm:right-5 mt-1 z-30 animate-fade-in"
+              style={{
+                background: 'color-mix(in srgb, var(--color-deep) 92%, transparent)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid color-mix(in srgb, var(--color-muted) 20%, transparent)',
+                borderRadius: '1rem',
+                padding: '1rem 1.25rem',
+                boxShadow: '0 8px 32px -8px rgba(0,0,0,0.4)',
+                minWidth: '280px',
+              }}
+            >
+              <CheckInStats journal={journal} />
+            </div>
+          )}
         </div>
       )}
 
@@ -237,28 +270,34 @@ export default function App() {
         >
           <h3 className="text-sm font-normal text-whisper/80 mb-5">过去的慢时光</h3>
           {journal.length === 0 ? (
-            <p className="text-xs text-whisper/60">还没有记录</p>
+            <p className="text-xs text-whisper/60">还没有记录，开始你的第一次慢时光吧</p>
           ) : (
             <div className="space-y-4">
-              {journal.map((entry, i) => (
-                <div key={i} className="pb-3" style={{ borderBottom: '1px solid color-mix(in srgb, var(--color-muted) 10%, transparent)' }}>
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs text-glow/70">{entry.activity}</span>
-                    <span className="text-xs text-whisper/60 font-mono">{entry.duration}</span>
+              {journal.map((entry, i) => {
+                const mood = entry.mood ? getMoodTag(entry.mood) : null;
+                return (
+                  <div key={i} className="pb-3" style={{ borderBottom: '1px solid color-mix(in srgb, var(--color-muted) 10%, transparent)' }}>
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-glow/70">{entry.activity}</span>
+                        {mood && <span className="text-sm">{mood.emoji}</span>}
+                      </div>
+                      <span className="text-xs text-whisper/60 font-mono">{entry.duration}</span>
+                    </div>
+                    {entry.entry && (
+                      <p className="text-xs text-whisper/60 leading-relaxed">{entry.entry}</p>
+                    )}
+                    <p className="text-xs text-whisper/40 mt-1 font-mono">
+                      {new Date(entry.timestamp).toLocaleDateString('zh-CN', {
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </p>
                   </div>
-                  {entry.entry && (
-                    <p className="text-xs text-whisper/60 leading-relaxed">{entry.entry}</p>
-                  )}
-                  <p className="text-xs text-whisper/40 mt-1 font-mono">
-                    {new Date(entry.timestamp).toLocaleDateString('zh-CN', {
-                      month: 'short',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

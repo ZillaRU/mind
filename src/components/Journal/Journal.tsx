@@ -1,18 +1,20 @@
 import { useState } from 'react';
+import { moodTags } from '../../data/moods';
 
 interface Props {
   activityName: string;
   duration: string;
-  onComplete: (entry: string) => void;
+  onComplete: (entry: string, mood?: string) => void;
   onSkip: () => void;
 }
 
 export default function Journal({ activityName, duration, onComplete, onSkip }: Props) {
   const [text, setText] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [selectedMood, setSelectedMood] = useState<string | null>(null);
 
   const handleSubmit = () => {
-    onComplete(text);
+    onComplete(text, selectedMood || undefined);
   };
 
   return (
@@ -26,6 +28,36 @@ export default function Journal({ activityName, duration, onComplete, onSkip }: 
         <p className="text-sm text-whisper/60">
           你慢了 <span className="text-glow/80 font-mono">{duration}</span>
         </p>
+      </div>
+
+      {/* Mood selector */}
+      <div className="w-full max-w-lg mb-6">
+        <p className="text-xs text-whisper/60 mb-3 text-center tracking-wide">此刻的心情</p>
+        <div className="flex gap-2 flex-wrap justify-center">
+          {moodTags.map(mood => (
+            <button
+              key={mood.id}
+              onClick={() => setSelectedMood(selectedMood === mood.id ? null : mood.id)}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full text-sm transition-all duration-400"
+              style={{
+                color: selectedMood === mood.id ? 'var(--color-glow)' : 'color-mix(in srgb, var(--color-whisper) 45%, transparent)',
+                background: selectedMood === mood.id
+                  ? 'linear-gradient(135deg, color-mix(in srgb, var(--color-aurora) 18%, transparent), color-mix(in srgb, var(--color-aurora) 6%, transparent))'
+                  : 'color-mix(in srgb, var(--color-surface) 35%, transparent)',
+                border: selectedMood === mood.id
+                  ? '1px solid color-mix(in srgb, var(--color-aurora) 35%, transparent)'
+                  : '1px solid color-mix(in srgb, var(--color-muted) 18%, transparent)',
+                boxShadow: selectedMood === mood.id
+                  ? '0 2px 12px -2px color-mix(in srgb, var(--color-aurora) 15%, transparent)'
+                  : 'none',
+                transform: selectedMood === mood.id ? 'scale(1.05)' : 'scale(1)',
+              }}
+            >
+              <span className="text-base">{mood.emoji}</span>
+              <span className="text-xs">{mood.label}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Journal area */}

@@ -1,73 +1,106 @@
-# React + TypeScript + Vite
+# 慢 (Mind)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+一个帮助你缓解 AI 焦虑、回归内心的 PWA 应用。
 
-Currently, two official plugins are available:
+**缘起：** "不被 Agent 加速的事"（如练琴、做饭）反而带来平和。在 vibe coding 时手上练琴、肌肉记忆形成的过程很治愈。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**目标用户：** 技术从业者 + 更广泛的白领人群
 
-## React Compiler
+## ✨ 核心功能
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🧘 慢活动库
+40+ 预设活动，覆盖四大类别：
+- **动手**：练琴、做饭、编织、泡茶、折纸、捏陶...
+- **身体**：拉伸、散步、慢跑、游泳、瑜伽...
+- **感官**：手冲咖啡、读书、看星星、听音乐、泡澡...
+- **创造**：写手账、拍照、写作、手工、尝试新菜...
 
-## Expanding the ESLint configuration
+支持**自定义活动**，创造属于你的慢时光。
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### ⏱️ 温和计时器
+- 无倒计时压力，只记录流逝的时间
+- 每个活动配有专属引导语
+- 特殊活动提供沉浸式体验引导（拉伸姿势、呼吸练习、烹饪步骤等）
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🎵 氛围白噪音
+6 种精心设计的白噪音（Web Audio API 程序化生成）：
+- 🌧️ 雨声 - 窗外细雨的温柔
+- 🔥 炉火 - 噼啪作响的温暖
+- ☕ 咖啡馆 - 远处的人声和杯碟
+- 🍃 风声 - 穿过树叶的低语
+- 🌊 海浪 - 潮起潮落，永不停歇
+- 🤫 静默 - 什么都没有，也什么都有
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 📝 反思日记 + 心情标签
+- 8 种心情标签：平静、愉悦、疲惫、焦虑、感恩...
+- 简短文字记录此刻感受
+- 所有数据本地存储，永不上传
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 📊 打卡追踪
+- 本周/本月打卡统计
+- 连续打卡天数
+- 时间累计统计
+- 最近 7 天热力图
+- 最常做的事 Top 3
+- 心情分布分析
+
+### ✨ 灵感卡片
+- 🎵 古典音乐推荐（附 Spotify/YouTube 搜索提示）
+- 📖 中西方诗歌（公共领域）
+- 🖼️ 经典艺术赏析（维基共享资源）
+- 📚 散文节选
+
+### 🎨 五种主题
+- 🌌 极光 - 紫蓝夜色
+- 🍃 绿叶 - 清新晨曦
+- 💧 水波 - 雨后湖面
+- 🌅 暮色 - 黄昏暖橙
+- 🪭 墨 - 水墨黑白
+
+## 🚀 开始使用
+
+```bash
+# 安装依赖
+npm install
+
+# 开发模式
+npm run dev
+
+# 构建生产版本
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 💾 数据隐私
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- 所有数据存储在浏览器本地 (localStorage)
+- 不需要登录
+- 不收集任何个人数据
+- 不会发送任何追踪信息
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🛠️ 技术栈
+
+- React 19 + TypeScript 6
+- Vite 8
+- Tailwind CSS 4
+- PWA (可安装到桌面/手机)
+
+## 📱 安装 PWA
+
+在支持的浏览器中，您可以将"慢"安装为桌面或移动应用，享受原生般的体验。
+
+## 🙏 设计理念
+
+**慢，不是效率的反义词。慢，是注意力的归处。**
+
+这个世界越来越快，AI 在飞速流淌。但有些事情，永远需要人亲自去做——练琴、做饭、散步、发呆。这些"不能被 AI 加速的事"，反而能让我们找回平静。
+
+"慢"不是要你放弃效率，而是给你一个暂停的空间。在这里，你可以：
+- 选一个活动，让计时器帮你记录
+- 听着白噪音，慢慢做一件事
+- 写下来，无论多少
+
+不用追求完美，不用打卡焦虑。只要你来了，坐下了，慢下来了——就够了。
+
+## 📄 License
+
+MIT
