@@ -11,19 +11,36 @@ function getRandomInspiration(exclude?: Inspiration): Inspiration {
 }
 
 function ArtCard({ item, onNext }: { item: Inspiration; onNext: () => void }) {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <div className="w-full max-w-lg animate-fade-in">
       <div 
-        className="relative rounded-2xl overflow-hidden mb-6 aspect-[4/3] flex items-center justify-center"
+        className="relative rounded-2xl overflow-hidden mb-6 aspect-[4/3]"
         style={{
-          background: 'linear-gradient(135deg, color-mix(in srgb, var(--color-aurora) 15%, transparent) 0%, color-mix(in srgb, var(--color-midnight) 90%, transparent) 100%)',
-          border: '1px solid color-mix(in srgb, var(--color-aurora) 20%, transparent)',
-          boxShadow: '0 8px 32px -8px rgba(0,0,0,0.4), inset 0 0 60px color-mix(in srgb, var(--color-aurora) 8%, transparent)',
+          background: 'color-mix(in srgb, var(--color-surface) 40%, transparent)',
+          border: '1px solid color-mix(in srgb, var(--color-muted) 15%, transparent)',
+          boxShadow: '0 8px 32px -8px rgba(0,0,0,0.4)',
         }}
       >
-        <span className="text-8xl opacity-60" style={{ filter: 'drop-shadow(0 0 30px color-mix(in srgb, var(--color-aurora) 40%, transparent))' }}>
-          {item.emoji || '🎨'}
-        </span>
+        {!imgError && item.imageUrl ? (
+          <img
+            src={item.imageUrl}
+            alt={item.title}
+            className="w-full h-full object-cover"
+            loading="lazy"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div 
+            className="w-full h-full flex items-center justify-center"
+            style={{
+              background: 'linear-gradient(135deg, color-mix(in srgb, var(--color-aurora) 12%, transparent), color-mix(in srgb, var(--color-midnight) 60%, transparent))',
+            }}
+          >
+            <span className="text-6xl opacity-50">🎨</span>
+          </div>
+        )}
         
         <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 via-transparent to-transparent" />
         

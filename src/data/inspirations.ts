@@ -1,8 +1,7 @@
 // Curated public domain inspirations
-// All content is either public domain or freely usable
+// Art images from The Metropolitan Museum of Art (CC0 license)
 // Music: composed before 1928
 // Poetry: classical Chinese poetry + pre-1928 Western poetry
-// Art: artists deceased >70 years
 
 export type InspirationType = 'music' | 'poetry' | 'art' | 'prose';
 
@@ -13,12 +12,93 @@ export interface Inspiration {
   era?: string;
   description: string;
   imageUrl?: string;
-  emoji?: string;
   text?: string;
   listenHint?: string;
 }
 
 export const inspirations: Inspiration[] = [
+  // === Art (from The Met, public domain) ===
+  {
+    type: 'art',
+    title: '麦田与柏树',
+    author: 'Vincent van Gogh',
+    era: '1889',
+    description: '梵高在精神病院里画的风景。漩涡般的云朵、燃烧般的柏树、金色的麦田。他看到的自然，比任何人都热烈。',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-42549-001.jpg',
+  },
+  {
+    type: 'art',
+    title: '鸢尾花',
+    author: 'Vincent van Gogh',
+    era: '1890',
+    description: '梵高生命最后一年画的花。紫色的鸢尾在金黄背景上盛开，每一朵都像是在用力活着。',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP346474.jpg',
+  },
+  {
+    type: 'art',
+    title: '开花的果园',
+    author: 'Vincent van Gogh',
+    era: '1888',
+    description: '梵高搬到阿尔勒后画的春天。粉色的花、蓝色的天，他终于找到了阳光。',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-14936-045.jpg',
+  },
+  {
+    type: 'art',
+    title: '戴草帽的自画像',
+    author: 'Vincent van Gogh',
+    era: '1887',
+    description: '梵高画了很多自画像。这一幅里他戴着草帽，像个普通的农夫。他想成为画太阳的人。',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT1502_cropped2.jpg',
+  },
+  {
+    type: 'art',
+    title: '亚里士多德与荷马半身像',
+    author: 'Rembrandt',
+    era: '1653',
+    description: '伦勃朗画的哲学家亚里士多德，手抚荷马的半身像。沉思的人，总在和历史对话。',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP-30758-001.jpg',
+  },
+  {
+    type: 'art',
+    title: '收割者',
+    author: 'Pieter Bruegel the Elder',
+    era: '1565',
+    description: '勃鲁盖尔画的夏日田野。农民在收割，有人在树下打盹。500年前的夏天，和现在一样热。',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP119115.jpg',
+  },
+  {
+    type: 'art',
+    title: '苹果与报春花静物',
+    author: 'Paul Cézanne',
+    era: '1890',
+    description: '塞尚说要用圆柱、球体、圆锥来看世界。他画的苹果，每个都是一个小宇宙。',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT47.jpg',
+  },
+  {
+    type: 'art',
+    title: '波浪',
+    author: 'Katsushika Hokusai',
+    era: '1830',
+    description: '北斋画这幅画时已经七十多岁了。巨浪要吞没一切，但远处的小船在坚持。大浪之下，有恒常。',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/as/original/DP141081.jpg',
+  },
+  {
+    type: 'art',
+    title: '林间小路',
+    author: 'Meyndert Hobbema',
+    era: '1670',
+    description: '荷兰画家的林间小路。阳光穿过树叶，有人在走。安静得能听见脚步声。',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DP252576.jpg',
+  },
+  {
+    type: 'art',
+    title: '鞋子',
+    author: 'Vincent van Gogh',
+    era: '1888',
+    description: '梵高画的一双旧鞋子。他说，这双鞋走过很多路，见过很多东西。静物，也可以有故事。',
+    imageUrl: 'https://images.metmuseum.org/CRDImages/ep/original/DT1947.jpg',
+  },
+
   // === Music (public domain) ===
   {
     type: 'music',
@@ -183,72 +263,6 @@ export const inspirations: Inspiration[] = [
     description: '落花时节，一个人站着。雨很小，燕子成双。孤独有时候也是一种美。',
   },
 
-  // === Art (public domain - no external images, use gradient + emoji) ===
-  {
-    type: 'art',
-    title: '星月夜',
-    author: 'Vincent van Gogh',
-    era: '1889',
-    description: '梵高在精神病院里画的夜空。漩涡般的星空下有一个安静的村庄。他看到的夜空，比任何人都热烈。',
-    emoji: '🌌',
-  },
-  {
-    type: 'art',
-    title: '睡莲',
-    author: 'Claude Monet',
-    era: '1906',
-    description: '莫奈晚年几乎只画睡莲。他不是在画花，是在画光落在水面上的样子。同一片池塘，他画了三百多次。',
-    emoji: '🪷',
-  },
-  {
-    type: 'art',
-    title: '神奈川冲浪里',
-    author: '葛饰北斋',
-    era: '1831',
-    description: '北斋画这幅画时已经七十多岁了。巨浪要吞没一切，但远处的富士山纹丝不动。大浪之下，有恒常。',
-    emoji: '🌊',
-  },
-  {
-    type: 'art',
-    title: '向日葵',
-    author: 'Vincent van Gogh',
-    era: '1888',
-    description: '梵高用最浓烈的黄色画向日葵。它们在花瓶里，有的盛开，有的枯萎。每一朵都是生命的某个瞬间。',
-    emoji: '🌻',
-  },
-  {
-    type: 'art',
-    title: '日出·印象',
-    author: 'Claude Monet',
-    era: '1872',
-    description: '这幅画给了"印象派"这个名字。雾气中的港口，太阳只是一个橙色的圆。莫奈画的不是风景，是印象——你第一眼看到的东西。',
-    emoji: '🌅',
-  },
-  {
-    type: 'art',
-    title: '凯风快晴',
-    author: '葛饰北斋',
-    era: '1830',
-    description: '也叫"赤富士"。夏天的清晨，富士山被朝霞染成红色。北斋画了三十六次富士山，每一次都不一样。重复不是无聊，是深入。',
-    emoji: '🗻',
-  },
-  {
-    type: 'art',
-    title: '呐喊',
-    author: 'Edvard Munch',
-    era: '1893',
-    description: '蒙克说："我和两个朋友一起散步，太阳下山了——突然间，天空变得血红。"焦虑的尽头，是承认它。',
-    emoji: '🌫️',
-  },
-  {
-    type: 'art',
-    title: '大碗岛的星期天下午',
-    author: 'Georges Seurat',
-    era: '1886',
-    description: '修拉用了两年的点彩画法完成这幅画。几百万个色点，远处看才是一幅画。有时候，退后一步才能看清全貌。',
-    emoji: '🎨',
-  },
-
   // === Prose (public domain) ===
   {
     type: 'prose',
@@ -271,7 +285,7 @@ export const inspirations: Inspiration[] = [
     title: '逍遥游（节选）',
     author: '庄子',
     era: '战国',
-    text: '北冥有鱼，其名为名为鲲。鲲之大，不知其几千里也；化而为鸟，其名为鹏。',
+    text: '北冥有鱼，其名为鲲。鲲之大，不知其几千里也；化而为鸟，其名为鹏。',
     description: '庄子眼里的世界很大。大到你不需要担心迷路，因为到处都是路。',
   },
   {
